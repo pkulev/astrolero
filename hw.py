@@ -145,14 +145,6 @@ class game(object):
         playerShip.setConstarints(self.display.get_width(), self.display.get_height())                                         
         
         self.movables.append(playerShip)
-        
-#        self.fontObj = pygame.font.Font('freesansbold.ttf', 16)
-#        self.mytext = self.fontObj.render("L", True, RED)
-#        self.mytextRect = self.mytext.get_rect()
-#        self.mytextRect.center = (self.mycat.get_width() / 2, self.mycat.get_height() / 2)
-#        self.textSurfaceObj = self.fontObj.render(self.direction, True, BLACK, WHITE)
-#        self.textRectObj = self.textSurfaceObj.get_rect()
-#        self.textRectObj.center = (200, 150)
 
         pygame.mixer.music.load('res/runaway.mp3')
         pygame.mixer.music.play(-1, 0.0)
@@ -191,33 +183,6 @@ class game(object):
     def updateState(self):
         for m in self.movables:
             m.updatePosition()
-
-    def updateMovables(self):
-        
-        if self.playerShip.direction == "up":
-            self.playerShip.setY(self.playerShip.getY() - 25)
-            if self.playerShip.getY() < 0:
-                self.playerShip.setY(0)
-            self.playerShip.direction = None
-        elif self.playerShip.direction == "down":
-            self.playerShip.setY(self.playerShip.getY() + 25)
-            if self.playerShip.getY() + self.playerShip.get_height() >= self.display.get_height():
-                self.playerShip.setY(self.display.get_height() - self.playerShip.get_height())
-            self.playerShip.direction = None
-        elif self.playerShip.direction == "right":
-            self.playerShip.setX(self.playerShip.getX() + 25)
-            if self.playerShip.getX() + self.playerShip.get_width() >= self.display.get_width():
-                self.playerShip.setX(self.display.get_width() - self.playerShip.get_width())
-            self.playerShip.direction = None
-        elif self.playerShip.direction == "left":
-
-            self.playerShip.setX(self.playerShip.getX() - 25)
-            if self.playerShip.getX() <= 0:
-                self.playerShip.setX(0)
-            self.playerShip.direction = None
-        else:
-            pass
-
 
     def drawScreen(self):
         self.display.fill(BLACK)
