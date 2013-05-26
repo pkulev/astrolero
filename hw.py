@@ -137,7 +137,7 @@ class game(object):
         
         self.display = pygame.display.set_mode((self.width, self.height), self.fullscreen, self.depth)
         
-        pygame.display.set_caption('Animation')
+        pygame.display.set_caption('Space game')
         
         playerShip = PlayerShip(0,0)
         playerShip.setImage('res/image 17.png')
@@ -192,9 +192,9 @@ class game(object):
         self.fpsClock.tick(self.FPS)
 
 
-catgame = game()
+spacegame = game()
 
 while True:
-    catgame.handleEvents()
-    catgame.updateState()
-    catgame.drawScreen()
+    spacegame.handleEvents()
+    spacegame.updateState()
+    spacegame.drawScreen()
