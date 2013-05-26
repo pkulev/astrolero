@@ -96,9 +96,7 @@ class game(object):
         self.playerShip = PlayerShip(0,0)
         self.playerShip.setImage('res/image 17.png')
         self.playerShip.setXY(self.display.get_width() / 2 - self.playerShip.get_width() / 2, self.display.get_height() - self.playerShip.get_height())
-        #self.catImg = pygame.image.load('res/image 17.png')
-        
-        #self.catCoord = Coord(10, 10)
+
 #        self.fontObj = pygame.font.Font('freesansbold.ttf', 16)
 #        self.mytext = self.fontObj.render("L", True, RED)
 #        self.mytextRect = self.mytext.get_rect()
@@ -120,7 +118,6 @@ class game(object):
             276: "left",
             97: "left"
             }
-#        self.direction = None
         
     def init(self):
         pass
@@ -167,7 +164,6 @@ class game(object):
 
     def drawScreen(self):
         self.display.fill(BLACK)
-        #self.display.blit(self.catImg, self.catCoord.getXY())
         self.display.blit(self.playerShip.getImage(), self.playerShip.getXY())
         pygame.display.update()
         self.fpsClock.tick(self.FPS)
