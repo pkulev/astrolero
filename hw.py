@@ -41,6 +41,16 @@ class Coord(object):
         self.x = x
         self.y = y
 
+    def setWidth(self, x):
+        self.x = x
+    def setHeight(self, y):
+        self.y = y
+
+    def getWidth(self):
+        return self.x
+    def getHeight(self):
+        return self.y
+
 class Entity(object):
     def __init__(self):
         self.coord = Coord(None, None)
@@ -72,7 +82,41 @@ class Entity(object):
     def get_width(self):
         return self.image.get_width()
 
-class PlayerShip(Entity):
+class Movable(Entity):
+    def __init__(self):
+        self.coord = Coord(None, None)
+        self.direction = None
+        self.constraints = Coord(None, None)
+
+    def setConstarints(self, x, y):
+        self.constraints = Coord(x, y)
+
+    def updatePosition(self):
+        if self.direction == "up":
+            self.setY(self.getY() - 25)
+            if self.getY() < 0:
+                self.setY(0)
+            self.direction = None
+        elif self.direction == "down":
+            self.setY(self.getY() + 25)
+            if self.getY() + self.get_height() >= self.constraints.getHeight():
+                self.setY(self.constraints.getHeight() - self.get_height())
+            self.direction = None
+        elif self.direction == "right":
+            self.setX(self.getX() + 25)
+            if self.getX() + self.get_width() >= self.constraints.getWidth():
+                self.setX(self.constraints.getWidth() - self.get_width())
+            self.direction = None
+        elif self.direction == "left":
+
+            self.setX(self.getX() - 25)
+            if self.getX() <= 0:
+                self.setX(0)
+            self.direction = None
+        else:
+            pass        
+    
+class PlayerShip(Movable):
     def __init__(self, startX, startY):
         self.coord = Coord(startX, startY)
         self.type = "PlayerShip"
@@ -91,12 +135,18 @@ class game(object):
         self.height = 480
         self.fullscreen = 0
         self.depth = 32
+        self.movables = []
+        
         self.display = pygame.display.set_mode((self.width, self.height), self.fullscreen, self.depth)
+        
         pygame.display.set_caption('Animation')
-        self.playerShip = PlayerShip(0,0)
-        self.playerShip.setImage('res/image 17.png')
-        self.playerShip.setXY(self.display.get_width() / 2 - self.playerShip.get_width() / 2, self.display.get_height() - self.playerShip.get_height())
-
+        
+        playerShip = PlayerShip(0,0)
+        playerShip.setImage('res/image 17.png')
+        playerShip.setXY(self.display.get_width() / 2 - playerShip.get_width() / 2, self.display.get_height() - playerShip.get_height())
+        playerShip.setConstarints(self.display.get_width(), self.display.get_height())                                         
+        
+        self.movables.append(playerShip)
 #        self.fontObj = pygame.font.Font('freesansbold.ttf', 16)
 #        self.mytext = self.fontObj.render("L", True, RED)
 #        self.mytextRect = self.mytext.get_rect()
@@ -132,39 +182,21 @@ class game(object):
                 sys.exit()
             elif event.type == KEYDOWN and event.key in self.keyToDir.keys():
                 print "KEY {0} MOD {1}".format(event.key, event.mod)
-                self.playerShip.direction = self.keyToDir[event.key]
+                for m in self.movables: ## obvious crunch
+                    if m.type == "PlayerShip":
+                        break
+                m.direction = self.keyToDir[event.key]
             else:
                 print(event)
 
     def updateState(self):
-        if self.playerShip.direction == "up":
-            self.playerShip.setY(self.playerShip.getY() - 25)
-            if self.playerShip.getY() < 0:
-                self.playerShip.setY(0)
-            self.playerShip.direction = None
-        elif self.playerShip.direction == "down":
-            self.playerShip.setY(self.playerShip.getY() + 25)
-            if self.playerShip.getY() + self.playerShip.get_height() >= self.display.get_height():
-                self.playerShip.setY(self.display.get_height() - self.playerShip.get_height())
-            self.playerShip.direction = None
-        elif self.playerShip.direction == "right":
-            self.playerShip.setX(self.playerShip.getX() + 25)
-            if self.playerShip.getX() + self.playerShip.get_width() >= self.display.get_width():
-                self.playerShip.setX(self.display.get_width() - self.playerShip.get_width())
-            self.playerShip.direction = None
-        elif self.playerShip.direction == "left":
-
-            self.playerShip.setX(self.playerShip.getX() - 25)
-            if self.playerShip.getX() <= 0:
-                self.playerShip.setX(0)
-            self.playerShip.direction = None
-        else:
-            pass
-        
+        for m in self.movables:
+            m.updatePosition()
 
     def drawScreen(self):
         self.display.fill(BLACK)
-        self.display.blit(self.playerShip.getImage(), self.playerShip.getXY())
+        for m in self.movables:
+            self.display.blit(m.getImage(), m.getXY())
         pygame.display.update()
         self.fpsClock.tick(self.FPS)
 
