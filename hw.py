@@ -96,23 +96,23 @@ class Movable(Entity):
             self.setY(self.getY() - 25)
             if self.getY() < 0:
                 self.setY(0)
-            self.direction = None
+#            self.direction = None
         elif self.direction == "down":
             self.setY(self.getY() + 25)
             if self.getY() + self.get_height() >= self.constraints.getHeight():
                 self.setY(self.constraints.getHeight() - self.get_height())
-            self.direction = None
+#            self.direction = None
         elif self.direction == "right":
             self.setX(self.getX() + 25)
             if self.getX() + self.get_width() >= self.constraints.getWidth():
                 self.setX(self.constraints.getWidth() - self.get_width())
-            self.direction = None
+#            self.direction = None
         elif self.direction == "left":
 
             self.setX(self.getX() - 25)
             if self.getX() <= 0:
                 self.setX(0)
-            self.direction = None
+#            self.direction = None
         else:
             pass        
     
@@ -177,8 +177,13 @@ class game(object):
                     if m.type == "PlayerShip":
                         break
                 m.direction = self.keyToDir[event.key]
+            elif event.type == KEYUP and event.key in self.keyToDir.keys():
+                for m in self.movables: ## obvious crunch
+                    if m.type == "PlayerShip":
+                        break
+                m.direction = None
             else:
-                print(event)
+                pass#print(event)
 
     def updateState(self):
         for m in self.movables:
