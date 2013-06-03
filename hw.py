@@ -1,6 +1,7 @@
 import pygame
 import sys
 from pygame.locals import *
+from pygame import K_w, K_a, K_s, K_d, K_LEFT, K_RIGHT, K_UP, K_DOWN, K_ESCAPE as K_ESC
 
 AQUA      =  (  0, 255, 255)
 BLACK     =  (  0,   0,   0)
@@ -115,6 +116,13 @@ class Movable(Entity):
 #            self.direction = None
         else:
             pass        
+
+class Controller(object):
+    def __init__(self):
+        pass
+    def getKey(self):
+        pass
+
     
 class PlayerShip(Movable):
     def __init__(self, startX, startY):
@@ -134,6 +142,7 @@ class game(object):
         self.fullscreen = 0
         self.depth = 32
         self.movables = []
+        self.keyStack = []
         
         self.display = pygame.display.set_mode((self.width, self.height), self.fullscreen, self.depth)
         
@@ -168,16 +177,20 @@ class game(object):
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESC):
                 pygame.quit()
                 sys.exit()
+
             elif event.type == KEYDOWN and event.key in self.keyToDir.keys():
-                print "KEY {0} MOD {1}".format(event.key, event.mod)
+                self.keyStack.append(event.key)
+                print "UP KEY {0} MOD {1} S:{2}".format(event.key, event.mod, self.keyStack)
                 for m in self.movables: ## obvious crunch
                     if m.type == "PlayerShip":
                         break
                 m.direction = self.keyToDir[event.key]
             elif event.type == KEYUP and event.key in self.keyToDir.keys():
+                self.keyStack.pop()
+                print "DOWN KEY {0} MOD {1} S:{2}".format(event.key, event.mod, self.keyStack)
                 for m in self.movables: ## obvious crunch
                     if m.type == "PlayerShip":
                         break
