@@ -2,6 +2,7 @@ import pygame
 import sys
 from pygame.locals import *
 from pygame import K_w, K_a, K_s, K_d, K_LEFT, K_RIGHT, K_UP, K_DOWN, K_ESCAPE as K_ESC
+from CGame import *
 
 AQUA      =  (  0, 255, 255)
 BLACK     =  (  0,   0,   0)
@@ -26,7 +27,7 @@ class Coord(object):
         self.y = y
     def __str__(self):
         print "({0}; {1})".format(self.x, self.y)
-    
+        
     def getXY(self):
         return (self.x, self.y)
     def getX(self):
@@ -59,6 +60,9 @@ class Entity(object):
         self.visible = True #?
         self.image = None
         
+    def init(args): #?
+        pass
+
     def getX(self):
         return self.coord.getX()
     def getY(self):
@@ -93,6 +97,26 @@ class Movable(Entity):
         self.constraints = Coord(x, y)
 
     def updatePosition(self):
+        pass
+
+class Immovable(Entity):
+    def __init__(self):
+        self.coord = Coord(None, None)
+        
+class Controller(object):
+    def __init__(self):
+        pass
+    def getKey(self):
+        pass
+
+    
+class PlayerShip(Movable):
+    def __init__(self, startX, startY):
+        self.coord = Coord(startX, startY)
+        self.type = "PlayerShip"
+        self.direction = None
+
+    def updatePosition(self):
         if self.direction == "up":
             self.setY(self.getY() - 25)
             if self.getY() < 0:
@@ -117,102 +141,18 @@ class Movable(Entity):
         else:
             pass        
 
-class Controller(object):
-    def __init__(self):
-        pass
-    def getKey(self):
-        pass
-
-    
-class PlayerShip(Movable):
-    def __init__(self, startX, startY):
-        self.coord = Coord(startX, startY)
-        self.type = "PlayerShip"
-        self.direction = None
-
-class game(object):
-
-    def __init__(self):
-        self.FPS = 60
-        self.fpsClock = pygame.time.Clock()
         
-        pygame.init()
-        self.width = 640
-        self.height = 480
-        self.fullscreen = 0
-        self.depth = 32
-        self.movables = []
-        self.keyStack = []
-        
-        self.display = pygame.display.set_mode((self.width, self.height), self.fullscreen, self.depth)
-        
-        pygame.display.set_caption('Space game')
-        
-        playerShip = PlayerShip(0,0)
-        playerShip.setImage('res/image 17.png')
-        playerShip.setXY(self.display.get_width() / 2 - playerShip.get_width() / 2, self.display.get_height() - playerShip.get_height())
-        playerShip.setConstarints(self.display.get_width(), self.display.get_height())                                         
-        
-        self.movables.append(playerShip)
-
-        pygame.mixer.music.load('res/runaway.mp3')
-        pygame.mixer.music.play(-1, 0.0)
-        
-        self.keyToDir = {
-            273: "up",
-            119: "up",
-            274: "down",
-            115: "down",
-            275: "right",
-            100: "right",
-            276: "left",
-            97: "left"
-            }
-        
-    def init(self):
+class Background(Immovable):
+    def __init__(self, X, Y):
+        self.coord = Coord(X, Y)
+        self.type = "Background"
+    def init(args):
         pass
 
-    def quit(self):
-        pass
+if __name__ == "__main__":
+    spacegame = Game()
 
-    def handleEvents(self):
-        for event in pygame.event.get():
-            if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESC):
-                pygame.quit()
-                sys.exit()
-
-            elif event.type == KEYDOWN and event.key in self.keyToDir.keys():
-                self.keyStack.append(event.key)
-                print "UP KEY {0} MOD {1} S:{2}".format(event.key, event.mod, self.keyStack)
-                for m in self.movables: ## obvious crunch
-                    if m.type == "PlayerShip":
-                        break
-                m.direction = self.keyToDir[event.key]
-            elif event.type == KEYUP and event.key in self.keyToDir.keys():
-                self.keyStack.pop()
-                print "DOWN KEY {0} MOD {1} S:{2}".format(event.key, event.mod, self.keyStack)
-                for m in self.movables: ## obvious crunch
-                    if m.type == "PlayerShip":
-                        break
-                m.direction = None
-            else:
-                pass#print(event)
-
-    def updateState(self):
-        for m in self.movables:
-            m.updatePosition()
-
-    def drawScreen(self):
-        self.display.fill(BLACK)
-        for m in self.movables:
-            self.display.blit(m.getImage(), m.getXY())
-        pygame.display.update()
-        self.fpsClock.tick(self.FPS)
-
-
-spacegame = game()
-
-while True:
-    spacegame.handleEvents()
-    spacegame.updateState()
-    spacegame.drawScreen()
+    while True:
+        spacegame.handleEvents()
+        spacegame.updateState()
+        spacegame.drawScreen()
