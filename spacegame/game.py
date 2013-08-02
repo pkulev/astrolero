@@ -1,7 +1,7 @@
-import CGame
+import sources.CGame
 
 if __name__ == "__main__":
-    spacegame = CGame.Game()
+    spacegame = sources.CGame.Game()
 
     while True:
         spacegame.handleEvents()
