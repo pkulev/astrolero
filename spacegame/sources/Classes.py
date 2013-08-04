@@ -102,14 +102,8 @@ class Movable(Entity):
 class Immovable(Entity):
     def __init__(self):
         self.coord = Coord(None, None)
-        
-class Controller(object):
-    def __init__(self):
-        pass
-    def getKey(self):
-        pass
 
-    
+        
 class PlayerShip(Movable):
     def __init__(self, startX, startY):
         self.coord = Coord(startX, startY)
@@ -139,13 +133,4 @@ class PlayerShip(Movable):
                 self.setX(0)
 #            self.direction = None
         else:
-            pass        
-
-        
-class Background(Immovable):
-    def __init__(self, X, Y):
-        self.coord = Coord(X, Y)
-        self.type = "Background"
-    def init(args):
-        pass
-
+            pass

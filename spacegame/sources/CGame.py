@@ -1,4 +1,6 @@
 from Classes import *
+import background
+import CResourceManager
 
 class Game(object):
 
@@ -19,9 +21,11 @@ class Game(object):
         
         pygame.display.set_caption('Space game')
 
-
+        RManager = CResourceManager()
+        #RManager.load()
+        
         #background
-        self.bg = Background(0,0)
+        self.bg = background.CBackground(0,0)
         self.bg.setImage('res/space.jpg')
 
         self.immovables.append(self.bg)
