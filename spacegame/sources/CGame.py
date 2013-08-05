@@ -1,5 +1,5 @@
 from Classes import *
-import background
+import CBackground
 import CResourceManager
 
 class Game(object):
@@ -26,7 +26,7 @@ class Game(object):
         #RManager.load()
         
         #background
-        self.bg = background.CBackground(0,0)
+        self.bg = CBackground.CBackground(0,0)
         self.bg.setImage('res/space.jpg')
 
         self.immovables.append(self.bg)
