@@ -2,7 +2,7 @@
 
 class CResourceManager(object):
     def __init__(self):
-        self.p = 0
+        self.sounds = dict()
         
-    def load(self):
+    def load_sound(self, sfile):
         pass

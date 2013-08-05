@@ -17,11 +17,12 @@ class Game(object):
         self.immovables = []
         self.keyStack = []
         
-        self.display = pygame.display.set_mode((self.width, self.height), self.fullscreen, self.depth)
+        self.display = pygame.display.set_mode((self.width, self.height), 
+                                               self.fullscreen, self.depth)
         
         pygame.display.set_caption('Space game')
 
-        RManager = CResourceManager()
+        RManager = CResourceManager.CResourceManager()
         #RManager.load()
         
         #background
