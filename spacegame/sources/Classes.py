@@ -57,7 +57,7 @@ class Entity(object):
     def __init__(self):
         self.coord = Coord(None, None)
         self.type = None
-        self.visible = True #?
+        self.visible = True
         self.image = None
         
     def init(args): #?
