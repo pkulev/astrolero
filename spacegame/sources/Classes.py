@@ -1,8 +1,7 @@
-import pygame
 import sys
-from pygame.locals import *
-from pygame import K_w, K_a, K_s, K_d, K_LEFT, K_RIGHT, K_UP, K_DOWN, K_ESCAPE as K_ESC
+from PygameBase import *
 from CGame import *
+from CEntity import *
 
 AQUA      =  (  0, 255, 255)
 BLACK     =  (  0,   0,   0)
@@ -21,73 +20,8 @@ TEAL      =  (  0, 128, 128)
 WHITE     =  (255, 255, 255)
 YELLOW    =  (255, 255,   0)
 
-class Coord(object):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-    def __str__(self):
-        print "({0}; {1})".format(self.x, self.y)
-        
-    def getXY(self):
-        return (self.x, self.y)
-    def getX(self):
-        return self.x
-    def getY(self):
-        return self.y
-    
-    def setX(self, x):
-        self.x = x
-    def setY(self, y):
-        self.y = y
-    def setXY(self, x, y):
-        self.x = x
-        self.y = y
 
-    def setWidth(self, x):
-        self.x = x
-    def setHeight(self, y):
-        self.y = y
-
-    def getWidth(self):
-        return self.x
-    def getHeight(self):
-        return self.y
-
-class Entity(object):
-    def __init__(self):
-        self.coord = Coord(None, None)
-        self.type = None
-        self.visible = True #?
-        self.image = None
-        
-    def init(args): #?
-        pass
-
-    def getX(self):
-        return self.coord.getX()
-    def getY(self):
-        return self.coord.getY()
-    def getXY(self):
-        return self.coord.getXY()
-    
-    def setX(self, x):
-        self.coord.setX(x)
-    def setY(self, y):
-        self.coord.setY(y)
-    def setXY(self, x, y):
-        self.coord.setXY(x, y)
-
-    def setImage(self, path):
-        self.image = pygame.image.load(path)
-    def getImage(self):
-        return self.image
-
-    def get_height(self):
-        return self.image.get_height()
-    def get_width(self):
-        return self.image.get_width()
-
-class Movable(Entity):
+class Movable(CEntity):
     def __init__(self):
         self.coord = Coord(None, None)
         self.direction = None
@@ -99,7 +33,7 @@ class Movable(Entity):
     def updatePosition(self):
         pass
 
-class Immovable(Entity):
+class Immovable(CEntity):
     def __init__(self):
         self.coord = Coord(None, None)
 
