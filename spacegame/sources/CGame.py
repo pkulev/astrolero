@@ -67,20 +67,25 @@ class Game(object):
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+            if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE): #?
                 pygame.quit()
                 sys.exit()
 
             elif event.type == KEYDOWN and event.key in self.keyToDir.keys():
                 self.keyStack.append(event.key)
-                print "UP KEY {0} MOD {1} S:{2}".format(event.key, event.mod, self.keyStack)
+                print "UP KEY {0} MOD {1} S:{2}".format(event.key, event.mod, 
+                                                        self.keyStack)
+                
                 for m in self.movables: ## obvious crunch
                     if m.type == "PlayerShip":
                         break
                 m.direction = self.keyToDir[event.key]
+
             elif event.type == KEYUP and event.key in self.keyToDir.keys():
                 self.keyStack.pop()
-                print "DOWN KEY {0} MOD {1} S:{2}".format(event.key, event.mod, self.keyStack)
+                print "DOWN KEY {0} MOD {1} S:{2}".format(event.key, event.mod,
+                                                          self.keyStack)
+
                 for m in self.movables: ## obvious crunch
                     if m.type == "PlayerShip":
                         break
