@@ -13,8 +13,7 @@ class Game(object):
         self.height = 480
         self.fullscreen = 0
         self.depth = 32
-        self.movables = []
-        self.immovables = []
+        self.gameObjects = []
         self.keyStack = []
         
         self.display = pygame.display.set_mode((self.width, self.height), 
@@ -29,21 +28,17 @@ class Game(object):
         self.bg = CBackground.CBackground(0,0)
         self.bg.setImage('res/space.jpg')
 
-        self.immovables.append(self.bg)
-        
         #playership
         self.playerShip = PlayerShip(0,0)
         self.playerShip.setImage('res/image 17.png')
         self.playerShip.setXY(
-            self.display.get_width() / 2 - self.playerShip.get_width() / 2, 
-            self.display.get_height() - self.playerShip.get_height()
-            )
+        self.display.get_width() / 2 - self.playerShip.get_width() / 2, 
+            self.display.get_height() - self.playerShip.get_height())
         self.playerShip.setConstraints(
             self.display.get_width(), 
-            self.display.get_height()
-            )                                         
+            self.display.get_height())                                         
         
-        self.movables.append(self.playerShip)
+        self.gameObjects.append(self.playerShip)
 
         pygame.mixer.music.load('res/runaway.mp3')
         pygame.mixer.music.play(-1, 0.0)
@@ -76,7 +71,7 @@ class Game(object):
                 print "UP KEY {0} MOD {1} S:{2}".format(event.key, event.mod, 
                                                         self.keyStack)
                 
-                for m in self.movables: ## obvious crunch
+                for m in self.gameObjects: ## obvious crunch
                     if m.type == "PlayerShip":
                         break
                 m.direction = self.keyToDir[event.key]
@@ -86,7 +81,7 @@ class Game(object):
                 print "DOWN KEY {0} MOD {1} S:{2}".format(event.key, event.mod,
                                                           self.keyStack)
 
-                for m in self.movables: ## obvious crunch
+                for m in self.gameObjects: ## obvious crunch
                     if m.type == "PlayerShip":
                         break
                 m.direction = None
@@ -94,16 +89,16 @@ class Game(object):
                 pass#print(event)
 
     def updateState(self):
-        for m in self.movables:
+        for m in self.gameObjects:
             m.updatePosition()
 
     def drawScreen(self):
         self.display.fill(BLACK)
 
-        for i in self.immovables:
+        for i in self.imgameObjects:
             self.display.blit(i.getImage(), i.getXY())
 
-        for m in self.movables:
+        for m in self.gameObjects:
                 self.display.blit(m.getImage(), m.getXY())
 
         self.display.blit(self.bg.getImage(), self.bg.getXY())

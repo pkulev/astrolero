@@ -32,16 +32,19 @@ class Coord(object):
     def getHeight(self):
         return self.y
 
+
 class CEntity(object):
     def __init__(self):
-        self.coord = Coord(None, None)
-        self.type = None
-        self.visible = True #?
+        self.coord = None
+        self.constraints = Coord(None, None)
+        #common types:
+        #Ship
+        #Asteroid
+        #Bonus
+        self.baseType = None
+        self.visible = True
         self.image = None
         
-    def init(args): #?
-        pass
-
     def getX(self):
         return self.coord.getX()
     def getY(self):
@@ -65,3 +68,9 @@ class CEntity(object):
         return self.image.get_height()
     def get_width(self):
         return self.image.get_width()
+
+    def setConstraints(self, x, y):
+        self.constraints = Coord(x, y)
+        
+    def getConstraints(self):
+        return self.constraints.getXY()

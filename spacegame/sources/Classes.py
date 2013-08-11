@@ -21,27 +21,21 @@ WHITE     =  (255, 255, 255)
 YELLOW    =  (255, 255,   0)
 
 
-class Movable(CEntity):
+class CShip(CEntity):
     def __init__(self):
         self.coord = Coord(None, None)
-        self.direction = None
         self.constraints = Coord(None, None)
-
-    def setConstraints(self, x, y):
-        self.constraints = Coord(x, y)
-
-    def updatePosition(self):
-        pass
-
-class Immovable(CEntity):
-    def __init__(self):
-        self.coord = Coord(None, None)
-
+        self.direction = None #(THINK!)
         
-class PlayerShip(Movable):
+        #THINK!
+        self.speedX = None
+        self.speedY = None
+
+
+class PlayerShip(CShip):
     def __init__(self, startX, startY):
         self.coord = Coord(startX, startY)
-        self.type = "PlayerShip"
+        self.baseType = "PlayerShip"
         self.direction = None
 
     def updatePosition(self):
@@ -61,10 +55,13 @@ class PlayerShip(Movable):
                 self.setX(self.constraints.getWidth() - self.get_width())
 #            self.direction = None
         elif self.direction == "left":
-
             self.setX(self.getX() - 25)
             if self.getX() <= 0:
                 self.setX(0)
 #            self.direction = None
         else:
             pass
+
+class EnemyShip(CShip):
+    def __init__(self, startX, startY):
+        self.baseType = "EnemyShip"
