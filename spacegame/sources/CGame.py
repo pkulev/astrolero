@@ -72,7 +72,7 @@ class Game(object):
                                                         self.keyStack)
                 
                 for m in self.gameObjects: ## obvious crunch
-                    if m.type == "PlayerShip":
+                    if m.baseType == "PlayerShip":
                         break
                 m.direction = self.keyToDir[event.key]
 
@@ -82,7 +82,7 @@ class Game(object):
                                                           self.keyStack)
 
                 for m in self.gameObjects: ## obvious crunch
-                    if m.type == "PlayerShip":
+                    if m.baseType == "PlayerShip":
                         break
                 m.direction = None
             else:
@@ -95,11 +95,8 @@ class Game(object):
     def drawScreen(self):
         self.display.fill(BLACK)
 
-        for i in self.imgameObjects:
+        for i in self.gameObjects:
             self.display.blit(i.getImage(), i.getXY())
-
-        for m in self.gameObjects:
-                self.display.blit(m.getImage(), m.getXY())
 
         self.display.blit(self.bg.getImage(), self.bg.getXY())
         self.display.blit(self.playerShip.getImage(), self.playerShip.getXY())
