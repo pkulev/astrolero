@@ -1,4 +1,4 @@
-from entity import *
+from .entity import *
 
 class CBackground(CEntity):
     def __init__(self, X, Y):

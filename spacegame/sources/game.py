@@ -1,6 +1,7 @@
-from Classes import *
-import background
-import rmanager
+from .Classes import *
+
+from . import background
+from . import rmanager
 
 class CGame(object):
 
@@ -40,9 +41,12 @@ class CGame(object):
 
         self.gameObjects.append(self.playerShip)
 
-        pygame.mixer.music.load('res/runaway.mp3')
-        pygame.mixer.music.play(-1, 0.0)
-        
+        pygame.mixer.init()
+        pygame.mixer.music.load('res/coll.ogg')
+        pygame.mixer.music.play(1, 1)
+        #a = pygame.mixer.Sound("res/fire.mp3")
+        #a.play()
+       
         self.keyToDir = {
             273: "up",
             119: "up",
@@ -68,8 +72,8 @@ class CGame(object):
 
             elif event.type == KEYDOWN and event.key in self.keyToDir.keys():
                 self.keyStack.append(event.key)
-                print "UP KEY {0} MOD {1} S:{2}".format(event.key, event.mod, 
-                                                        self.keyStack)
+                print("UP KEY {0} MOD {1} S:{2}".format(event.key, event.mod, 
+                                                        self.keyStack))
                 
                 for m in self.gameObjects: ## obvious crunch
                     if m.baseType == "PlayerShip":
@@ -78,8 +82,8 @@ class CGame(object):
 
             elif event.type == KEYUP and event.key in self.keyToDir.keys():
                 self.keyStack.pop()
-                print "DOWN KEY {0} MOD {1} S:{2}".format(event.key, event.mod,
-                                                          self.keyStack)
+                print("DOWN KEY {0} MOD {1} S:{2}".format(event.key, event.mod,
+                                                          self.keyStack))
 
                 for m in self.gameObjects: ## obvious crunch
                     if m.baseType == "PlayerShip":

@@ -15,11 +15,11 @@ class CImportGrapher(object):
         self.filelist = None
 
     def getFileList(self):
-        def filterFileList(self, l, fltr):
+        def filterFileList(self, files, fltr):
             res = []
-            for i in l:
-                if re.match(fltr, i):
-                    res.append(i)
+            for f in files:
+                if re.match(fltr, f):
+                    res.append(f)
             return res
                     
         fltr = r"\w+\.py"

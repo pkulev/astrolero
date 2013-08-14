@@ -1,7 +1,7 @@
 import sys
-from pygame_base import *
-from game import *
-from entity import *
+from .pygame_base import *
+from .game import *
+from .entity import *
 
 AQUA      =  (  0, 255, 255)
 BLACK     =  (  0,   0,   0)
