@@ -9,18 +9,15 @@ class CGame(object):
         self.FPS = 60
         self.fpsClock = pygame.time.Clock()
         
-        pygame.init()
         self.width = 640
         self.height = 480
         self.fullscreen = 0
         self.depth = 32
         self.gameObjects = []
-        self.keyStack = []
-        
-        self.display = pygame.display.set_mode((self.width, self.height), 
-                                               self.fullscreen, self.depth)
-        
-        pygame.display.set_caption('Space game')
+   
+        self.display = self.createWindow(self.width, self.height, 
+                                         self.fullscreen, self.depth, 
+                                         "Space game") 
 
         RManager = rmanager.CResourceManager()
         #RManager.load()
@@ -58,32 +55,28 @@ class CGame(object):
             97: "left"
             }
         
-    def init(self):
-        pass
+    def createWindow(self, width=800, height=600, 
+                     fullscreen=0, depth=32, 
+                     caption="game"):
+        pygame.init()
+        display = pygame.display.set_mode((width, height), fullscreen, depth)
+        pygame.display.set_caption(caption)
+        return display
 
     def quit(self):
         pass
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE): #?
+            if event.type == QUIT or (event.type == KEYDOWN and 
+                                      event.key == K_ESCAPE):
                 pygame.quit()
                 sys.exit()
 
             elif event.type == KEYDOWN and event.key in self.keyToDir.keys():
-                self.keyStack.append(event.key)
-                print("UP KEY {0} MOD {1} S:{2}".format(event.key, event.mod, 
-                                                        self.keyStack))
+                self.playerShip.
                 
-                for m in self.gameObjects: ## obvious crunch
-                    if m.baseType == "PlayerShip":
-                        break
-                m.direction = self.keyToDir[event.key]
-
             elif event.type == KEYUP and event.key in self.keyToDir.keys():
-                self.keyStack.pop()
-                print("DOWN KEY {0} MOD {1} S:{2}".format(event.key, event.mod,
-                                                          self.keyStack))
 
                 for m in self.gameObjects: ## obvious crunch
                     if m.baseType == "PlayerShip":
