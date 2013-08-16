@@ -1,4 +1,4 @@
-#! /usr/env python
+#! /usr/bin/env python
 import sources.game
 
 if __name__ == "__main__":

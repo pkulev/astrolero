@@ -24,8 +24,41 @@ class CImportGrapher(object):
                     
         fltr = r"\w+\.py"
         self.filelist = filterFileList(self, os.listdir(self.work))
-
+    
+    
+        
     def getImportMapping(self):
+        '''
+        getImportMapping() --> dict {"file.py" : ["import1", "import2", ... ]}
+        
+        '''
+        def extractImports(self, src):
+            '''
+            extractImports(src) --> list
+            
+            Takes path to source file and returns list of import strings.
+            
+            '''
+            importStringList = []
+            with open(src, 'r') as f:
+                for string in f:
+                    for fltr in filterList:
+                        if re.match(fltr, string):
+                            importStringList.append(string)
+            return importStringList
+
+        def processImportStringList(self, importStringList):
+            for s in importStringList:
+                temp = s.split(" ")
+                if s[0] == "import":
+                    if s[1].
+
+                elif s[0] == "from":
+                    pass
+            
+        mapDict = {pfile : extractImports(pfile) for pfile in self.filelist} 
+
+
 
 #graph = pydot.graph_from_dot_file("test.dot")
 #graph.write_png("out.png")

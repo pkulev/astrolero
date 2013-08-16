@@ -74,10 +74,11 @@ class CGame(object):
                 sys.exit()
 
             elif event.type == KEYDOWN and event.key in self.keyToDir.keys():
-                self.playerShip.
+                print(event.mod)
                 
             elif event.type == KEYUP and event.key in self.keyToDir.keys():
-
+                print(event.mod)
+                
                 for m in self.gameObjects: ## obvious crunch
                     if m.baseType == "PlayerShip":
                         break
