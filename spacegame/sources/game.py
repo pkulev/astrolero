@@ -11,17 +11,16 @@ class CGame(object):
         
         self.width = 640
         self.height = 480
-        self.fullscreen = 0
         self.depth = 32
-        self.gameObjects = []
-   
+
+        self.fullscreen = 0
+
         self.display = self.createWindow(self.width, self.height, 
                                          self.fullscreen, self.depth, 
                                          "Space game") 
 
-        RManager = rmanager.CResourceManager()
-        #RManager.load()
-        
+        self.gameObjects = []
+   
         #background
         self.bg = background.CBackground(0,0)
         self.bg.setImage('res/space.jpg')
@@ -41,8 +40,6 @@ class CGame(object):
         pygame.mixer.init()
         pygame.mixer.music.load('res/coll.ogg')
         pygame.mixer.music.play(1, 1)
-        #a = pygame.mixer.Sound("res/fire.mp3")
-        #a.play()
        
         self.keyToDir = {
             273: "up",
@@ -64,14 +61,14 @@ class CGame(object):
         return display
 
     def quit(self):
-        pass
+        pygame.quit()
+        sys.exit()
 
     def handleEvents(self):
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and 
                                       event.key == K_ESCAPE):
-                pygame.quit()
-                sys.exit()
+                quit()
 
             elif event.type == KEYDOWN and event.key in self.keyToDir.keys():
                 print(event.mod)
@@ -84,7 +81,7 @@ class CGame(object):
                         break
                 m.direction = None
             else:
-                pass#print(event)
+                pass
 
     def updateState(self):
         for m in self.gameObjects:
