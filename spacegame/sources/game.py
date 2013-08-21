@@ -53,7 +53,6 @@ class CGame(object):
             if (event.type == QUIT or 
             (event.type == KEYDOWN and 
              event.key == K_ESCAPE)): quit()
-            self.wolo_lo()
             self.handleEvent(event)
 
     def updateState(self):

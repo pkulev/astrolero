@@ -38,6 +38,9 @@ class PlayerShip(CShip):
         self.baseType = "PlayerShip"
         self.direction = None
 
+    def updateState(self):
+        self.updatePosition()
+
     def updatePosition(self):
         if self.direction == "up":
             self.setY(self.getY() - 25)
