@@ -49,12 +49,12 @@ class CImportGrapher(object):
 
         def processImportStringList(self, importStringList):
             for s in importStringList:
-                temp = s.split(" ")
-                if s[0] == "import":
-                    if s[1].
-
-                elif s[0] == "from":
-                    pass
+                if s.startwith("import"):
+                    print("IMPORT: " + s)
+                elif s.startwith("from" ):
+                    print("FROM: " + s)
+                else:
+                    print("ERROR: WAAT")
             
         mapDict = {pfile : extractImports(pfile) for pfile in self.filelist} 
 
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     ig = CImportGrapher(work)
     ig.getFileList()
     ig.getImportMapping()
-    #ig.generateDotFile()
+    #Ig.generateDotFile()
     #ig.readDotFile()
     #ig.writePNG()
     
