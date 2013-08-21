@@ -5,7 +5,7 @@ from . import rmanager
 
 class CGame(object):
 
-    def __init__(self):
+    def __init__(self, caption):
         self.FPS = 60
         self.fpsClock = pygame.time.Clock()
         
@@ -17,48 +17,24 @@ class CGame(object):
 
         self.display = self.createWindow(self.width, self.height, 
                                          self.fullscreen, self.depth, 
-                                         "Space game") 
+                                         caption) 
 
         self.gameObjects = []
    
         #background
         self.bg = None
     
-        #playership
-        self.playerShip = PlayerShip(0,0)
-        self.playerShip.setImage('res/image 17.png')
-        self.playerShip.setXY(
-        self.display.get_width() / 2 - self.playerShip.get_width() / 2, 
-            self.display.get_height() - self.playerShip.get_height())
-        self.playerShip.setConstraints(
-            self.display.get_width(), 
-            self.display.get_height())
-
-        self.gameObjects.append(self.playerShip)
-
         pygame.mixer.init()
         pygame.mixer.music.load('res/coll.ogg')
         pygame.mixer.music.play(1, 1)
        
-        self.keyToDir = {
-            273: "up",
-            119: "up",
-            274: "down",
-            115: "down",
-            275: "right",
-            100: "right",
-            276: "left",
-            97: "left"
-            }
-        
     def addGameObject(self, gameObject):
         self.gameObjects.append(gameObject)
 
     def setBackground(self, path):
         self.bg = pygame.image.load(path)
         
-    def createWindow(self, width=800, height=600, 
-                     fullscreen=0, depth=32, 
+    def createWindow(self, width, height, fullscreen, depth, 
                      caption="game"):
         pygame.init()
         display = pygame.display.set_mode((width, height), fullscreen, depth)
@@ -69,37 +45,34 @@ class CGame(object):
         pygame.quit()
         sys.exit()
 
+    def handleEvent(self, event):
+        raise NotImplementedError("Should  have implemented this function")
+
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == QUIT or (event.type == KEYDOWN and 
-                                      event.key == K_ESCAPE):
-                quit()
-
-            elif event.type == KEYDOWN and event.key in self.keyToDir.keys():
-                print(event.mod)
-                
-            elif event.type == KEYUP and event.key in self.keyToDir.keys():
-                print(event.mod)
-                
-                for m in self.gameObjects: ## obvious crunch
-                    if m.baseType == "PlayerShip":
-                        break
-                m.direction = None
-            else:
-                pass
+            if (event.type == QUIT or 
+            (event.type == KEYDOWN and 
+             event.key == K_ESCAPE)): quit()
+            self.wolo_lo()
+            self.handleEvent(event)
 
     def updateState(self):
         for m in self.gameObjects:
-            m.updatePosition()
+            m.updateState()
 
     def drawScreen(self):
         self.display.fill(BLACK)
 
+        self.display.blit(self.bg, (0, 0))
+        
         for i in self.gameObjects:
             self.display.blit(i.getImage(), i.getXY())
 
-        self.display.blit(self.bg.getImage(), self.bg.getXY())
-        self.display.blit(self.playerShip.getImage(), self.playerShip.getXY())
-        
         pygame.display.update()
         self.fpsClock.tick(self.FPS)
+
+    def start(self):
+        while True:
+            self.handleEvents()
+            self.updateState()
+            self.drawScreen()
