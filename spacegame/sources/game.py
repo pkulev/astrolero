@@ -22,9 +22,8 @@ class CGame(object):
         self.gameObjects = []
    
         #background
-        self.bg = background.CBackground(0,0)
-        self.bg.setImage('res/space.jpg')
-
+        self.bg = None
+    
         #playership
         self.playerShip = PlayerShip(0,0)
         self.playerShip.setImage('res/image 17.png')
@@ -33,7 +32,7 @@ class CGame(object):
             self.display.get_height() - self.playerShip.get_height())
         self.playerShip.setConstraints(
             self.display.get_width(), 
-            self.display.get_height())                                        
+            self.display.get_height())
 
         self.gameObjects.append(self.playerShip)
 
@@ -51,6 +50,12 @@ class CGame(object):
             276: "left",
             97: "left"
             }
+        
+    def addGameObject(self, gameObject):
+        self.gameObjects.append(gameObject)
+
+    def setBackground(self, path):
+        self.bg = pygame.image.load(path)
         
     def createWindow(self, width=800, height=600, 
                      fullscreen=0, depth=32, 
