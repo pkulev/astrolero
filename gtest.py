@@ -1,6 +1,8 @@
+#! /usr/bin/env python
+
 import os, sys
 import re
-import pydot
+#import pydot
 
 
 #1) get list of .py files
@@ -13,6 +15,7 @@ class CImportGrapher(object):
     def __init__(self, work = "./"):
         self.work = work
         self.filelist = None
+        self.filterList = [
 
     def getFileList(self):
         def filterFileList(self, files, fltr):
@@ -23,7 +26,8 @@ class CImportGrapher(object):
             return res
                     
         fltr = r"\w+\.py"
-        self.filelist = filterFileList(self, os.listdir(self.work))
+        
+        self.filelist = filterFileList(self, os.listdir(self.work), fltr)
     
     
         
@@ -42,7 +46,7 @@ class CImportGrapher(object):
             importStringList = []
             with open(src, 'r') as f:
                 for string in f:
-                    for fltr in filterList:
+                    for fltr in self.filterList:
                         if re.match(fltr, string):
                             importStringList.append(string)
             return importStringList
@@ -56,15 +60,17 @@ class CImportGrapher(object):
                 else:
                     print("ERROR: WAAT")
             
-        mapDict = {pfile : extractImports(pfile) for pfile in self.filelist} 
-
+        mapDict = {pfile : extractImports(self, self.work + pfile) for pfile in self.filelist} 
+        print(mapDict)
+        processImportStringList(self.importStringList)
 
 
 #graph = pydot.graph_from_dot_file("test.dot")
 #graph.write_png("out.png")
 
 if __name__ == "__main__":
-    work = "/home/most/programming/projects/pygame-study/spacegame/sources/"
+    work = "spacegame/sources/"
+    #"/home/most/programming/projects/pygame-study/spacegame/sources/"
     ig = CImportGrapher(work)
     ig.getFileList()
     ig.getImportMapping()
