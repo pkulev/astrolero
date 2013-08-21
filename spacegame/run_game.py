@@ -20,7 +20,7 @@ class SGame(CGame):
 
         self.gameObjects.append(self.playerShip)
 
-    def handleEvent(self):
+    def handleEvent(self, event):
         pass
 
 if __name__ == "__main__":
