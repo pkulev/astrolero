@@ -64,7 +64,7 @@ class CGame(State):
             m.updateState()
 
     def drawScreen(self):
-        print self._gameObjects
+        print(self._gameObjects)
         self.display.fill(pygame.Color(0,0,0,1))
 
         self.display.blit(self.bg, (0, 0))
