@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-from sources.game import CGame
+from sources.game import CGame, Application
 from sources.Classes import *
 
 class SGame(CGame):
@@ -9,14 +9,13 @@ class SGame(CGame):
         self.setBackground('res/space.jpg')
         
         #playership
+        print(dir(PlayerShip))
         playerShip = PlayerShip(0,0)
-        playerShip.setImage('res/image 17.png')
-        playerShip.setXY(
-            self.display.get_width() / 2 - playerShip.get_width() / 2, 
-            self.display.get_height() - playerShip.get_height())
-        playerShip.setConstraints(
-            self.display.get_width(), 
-            self.display.get_height())
+        playerShip.image = 'res/image 17.png'
+        playerShip.x = self.display.get_width() / 2 - playerShip.width / 2
+        playerShip.y = self.display.get_height() - playerShip.height
+        playerShip.constraints.x = self.display.get_width()
+        playerShip.constraints.y = self.display.get_height()
 
         self.addGameObject(playerShip)
 
@@ -28,5 +27,8 @@ class SGame(CGame):
         pass
 
 if __name__ == "__main__":
-    spacegame = SGame()
-    spacegame.start()
+    App = Application()
+    App.addState(SGame(), "game")
+    App.state = "game"
+    App.start
+

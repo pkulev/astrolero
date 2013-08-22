@@ -1,25 +1,7 @@
 import sys
-from .pygame_base import *
+
 from .game import *
 from .entity import *
-
-AQUA      =  (  0, 255, 255)
-BLACK     =  (  0,   0,   0)
-BLUE      =  (  0,   0, 255)
-FUCHSIA   =  (255,   0, 255)
-GRAY      =  (128, 128, 128)
-GREEN     =  (  0, 128,   0)
-LIME      =  (  0, 255,   0)
-MAROON    =  (128,   0,   0)
-NAVYBLUE  =  (  0,   0, 128)
-OLIVE     =  (128, 128,   0)
-PURPLE    =  (128,   0, 128)
-RED       =  (255,   0,   0)
-SILVER    =  (192, 192, 192)
-TEAL      =  (  0, 128, 128)
-WHITE     =  (255, 255, 255)
-YELLOW    =  (255, 255,   0)
-
 
 class CShip(CEntity):
     def __init__(self):
@@ -27,14 +9,12 @@ class CShip(CEntity):
         self.constraints = Coord(None, None)
         self.direction = None #(THINK!)
         
-        #THINK!
         self.speedX = None
         self.speedY = None
 
-
 class PlayerShip(CShip):
     def __init__(self, startX, startY):
-        self.coord = Coord(startX, startY)
+        self.coord = Gizmo(startX, startY)
         self.baseType = "PlayerShip"
         self.direction = None
 

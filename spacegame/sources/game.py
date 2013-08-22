@@ -3,7 +3,17 @@ from .Classes import *
 from . import background
 from . import rmanager
 
-class CGame(object):
+class State(object):
+    def handleEvents(self):
+        raise NotImplementedError("handleEvents method not implemented")
+
+    def updateState(self):
+        raise NotImplementedError("updateState method not implemented")
+
+    def drawScreen(self):
+        raise NotImplementedError("drawScreen method not implemented")
+
+class CGame(State):
 
     def __init__(self, caption):
         self.FPS = 60
@@ -66,8 +76,31 @@ class CGame(object):
         pygame.display.update()
         self.fpsClock.tick(self.FPS)
 
+class Application(object):
+    def __init__(self):
+        self._state = None
+        self.states = {}
+
+    @property
+    def state(self):
+        """Current application state.
+           Raises KeyError on attempt to set state, which 
+           has not been added via addState method.
+        """
+        return self._state
+
+    @state.setter
+    def state(self, name):
+        if name in self.states.keys():
+            self._state = self.states[name]
+        else:
+            raise KeyError("There is no state with name {0}".format(name))
+
+    def addState(self, state, name):
+        self.states[name] = state
+        
     def start(self):
         while True:
-            self.handleEvents()
-            self.updateState()
-            self.drawScreen()
+            self.state.handleEvents()
+            self.state.updateState()
+            self.state.drawScreen()
