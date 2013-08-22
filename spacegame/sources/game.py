@@ -1,7 +1,5 @@
 from .Classes import *
-
-from . import background
-from . import rmanager
+import pygame
 
 class State(object):
     def handleEvents(self):
@@ -29,7 +27,7 @@ class CGame(State):
                                          self.fullscreen, self.depth, 
                                          caption) 
 
-        self.gameObjects = []
+        self._gameObjects = []
    
         #background
         self.bg = None
@@ -37,7 +35,7 @@ class CGame(State):
         pygame.mixer.init()
        
     def addGameObject(self, gameObject):
-        self.gameObjects.append(gameObject)
+        self._gameObjects.append(gameObject)
 
     def setBackground(self, path):
         self.bg = pygame.image.load(path)
@@ -58,20 +56,21 @@ class CGame(State):
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == QUIT: quit()
+            if event.type == 'QUIT': quit()
             self.handleEvent(event)
 
     def updateState(self):
-        for m in self.gameObjects:
+        for m in self._gameObjects:
             m.updateState()
 
     def drawScreen(self):
-        self.display.fill(BLACK)
+        print self._gameObjects
+        self.display.fill(pygame.Color(0,0,0,1))
 
         self.display.blit(self.bg, (0, 0))
         
-        for i in self.gameObjects:
-            self.display.blit(i.getImage(), i.getXY())
+        for i in self._gameObjects:
+            self.display.blit(i.image, (i.x, i.y))
 
         pygame.display.update()
         self.fpsClock.tick(self.FPS)

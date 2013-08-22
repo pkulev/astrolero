@@ -9,7 +9,6 @@ class SGame(CGame):
         self.setBackground('res/space.jpg')
         
         #playership
-        print(dir(PlayerShip))
         playerShip = PlayerShip(0,0)
         playerShip.image = 'res/image 17.png'
         playerShip.x = self.display.get_width() / 2 - playerShip.width / 2
@@ -30,5 +29,5 @@ if __name__ == "__main__":
     App = Application()
     App.addState(SGame(), "game")
     App.state = "game"
-    App.start
+    App.start()
 

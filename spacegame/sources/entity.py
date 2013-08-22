@@ -1,4 +1,4 @@
-from .pygame_base import pygame
+import pygame
 
 class Gizmo(object):
     """Represents bounding box for every in-game object.
@@ -54,7 +54,7 @@ class CEntity(Gizmo):
     """
     
     def __init__(self, owner = None):
-        super(CEntity, self).__init__(self, 0, 0)
+        super(CEntity, self).__init__(0, 0)
         self._owner = owner 
         self._constraints = Gizmo(0, 0)
         self._baseType = None
@@ -75,6 +75,8 @@ class CEntity(Gizmo):
     @image.setter
     def image(self, path):
         self._image = pygame.image.load(path)
+        self._width = self._image.get_width()
+        self._height = self._image.get_height()
 
     @property
     def baseType(self):
