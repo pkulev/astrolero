@@ -18,7 +18,7 @@ class SGame(CGame):
             self.display.get_width(), 
             self.display.get_height())
 
-        self.addGameObject(self.playerShip)
+        self.addGameObject(playerShip)
 
     def handleEvent(self, event):
         pass
