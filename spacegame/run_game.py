@@ -20,6 +20,10 @@ class SGame(CGame):
 
         self.addGameObject(playerShip)
 
+        pygame.mixer.music.load('res/coll.ogg')
+        pygame.mixer.music.play(1, 1)
+
+
     def handleEvent(self, event):
         pass
 

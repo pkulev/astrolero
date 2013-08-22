@@ -46,19 +46,28 @@ class Gizmo(object):
         self._height = value
 
 class CEntity(Gizmo):
-    """Base class for all other in-game objects.
+    """Base class for all in-game objects.
        Defines position, size, constraints (if present),
        visibility, image and type of game object.
+    
+    Provides pure abstract methods for updating state of object.
     """
     
-    def __init__(self, x, y):
-        super(CEntity, self).__init__(self, x, y)
+    def __init__(self, owner = None):
+        super(CEntity, self).__init__(self, 0, 0)
+        self._owner = owner 
         self._constraints = Gizmo(0, 0)
         self._baseType = None
         self._image = None
 
         self.visible = True
        
+    @property
+    def owner(self):
+        """Read only.
+           Entity owner - RM or game object"""
+        return self._owner
+        
     @property
     def image(self):
         """Pygame image"""
@@ -85,3 +94,9 @@ class CEntity(Gizmo):
     @constraints.setter
     def constraints(self, value):
         self._constraints = value
+
+    def updateState(self):
+        """Virtual function for updating state of an object
+           at each iteration of game cycle
+        """
+        raise NotImplementedError("updateState function was not implemented")

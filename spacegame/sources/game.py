@@ -25,8 +25,6 @@ class CGame(object):
         self.bg = None
     
         pygame.mixer.init()
-        pygame.mixer.music.load('res/coll.ogg')
-        pygame.mixer.music.play(1, 1)
        
     def addGameObject(self, gameObject):
         self.gameObjects.append(gameObject)
@@ -50,9 +48,7 @@ class CGame(object):
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if (event.type == QUIT or 
-            (event.type == KEYDOWN and 
-             event.key == K_ESCAPE)): quit()
+            if event.type == QUIT: quit()
             self.handleEvent(event)
 
     def updateState(self):
