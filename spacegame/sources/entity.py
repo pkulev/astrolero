@@ -4,6 +4,7 @@ class Coord(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+
     def __str__(self):
         print ("({0}; {1})".format(self.x, self.y))
         
@@ -37,10 +38,6 @@ class CEntity(object):
     def __init__(self):
         self.coord = None
         self.constraints = Coord(None, None)
-        #common types:
-        #Ship
-        #Asteroid
-        #Bonus
         self.baseType = None
         self.visible = True
         self.image = None
