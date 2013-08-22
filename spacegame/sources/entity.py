@@ -1,76 +1,87 @@
 from .pygame_base import pygame
 
-class Coord(object):
+class Gizmo(object):
+    """Represents bounding box for every in-game object.
+       Can also be used for defining constarints.
+    """
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
+        self._width = 0
+        self._height = 0
+
     def __str__(self):
-        print ("({0}; {1})".format(self.x, self.y))
+        print ("({0}; {1})".format(self._x, self._y))
+
+    @property
+    def x(self):
+        """Horizontal coordinate of top left corner"""
+        return self._x
+    @x.setter
+    def x(self, value):
+        self._x = value
         
-    def getXY(self):
-        return (self.x, self.y)
-    def getX(self):
-        return self.x
-    def getY(self):
-        return self.y
+    @property
+    def y(self):
+        """Vertical coordinate of top left corner"""
+        return self._y
+    @y.setter
+    def y(self, value):
+        self._y = value
     
-    def setX(self, x):
-        self.x = x
-    def setY(self, y):
-        self.y = y
-    def setXY(self, x, y):
-        self.x = x
-        self.y = y
+    @property
+    def width(self):
+        """Bounding box width"""
+        return self._width
+    @width.setter
+    def width(self, value):
+        self._width = value
 
-    def setWidth(self, x):
-        self.x = x
-    def setHeight(self, y):
-        self.y = y
+    @property
+    def height(self):
+        """Bounding box height"""
+        return self._height
+    @height.setter
+    def height(self, value):
+        self._height = value
 
-    def getWidth(self):
-        return self.x
-    def getHeight(self):
-        return self.y
+class CEntity(Gizmo):
+    """Base class for all other in-game objects.
+       Defines position, size, constraints (if present),
+       visibility, image and type of game object.
+    """
+    
+    def __init__(self, x, y):
+        super(CEntity, self).__init__(self, x, y)
+        self._constraints = Gizmo(0, 0)
+        self._baseType = None
+        self._image = None
 
-
-class CEntity(object):
-    def __init__(self):
-        self.coord = None
-        self.constraints = Coord(None, None)
-        #common types:
-        #Ship
-        #Asteroid
-        #Bonus
-        self.baseType = None
         self.visible = True
-        self.image = None
-        
-    def getX(self):
-        return self.coord.getX()
-    def getY(self):
-        return self.coord.getY()
-    def getXY(self):
-        return self.coord.getXY()
-    
-    def setX(self, x):
-        self.coord.setX(x)
-    def setY(self, y):
-        self.coord.setY(y)
-    def setXY(self, x, y):
-        self.coord.setXY(x, y)
+       
+    @property
+    def image(self):
+        """Pygame image"""
+        return self._image
+    @image.setter
+    def image(self, path):
+        self._image = pygame.image.load(path)
 
-    def setImage(self, path):
-        self.image = pygame.image.load(path)
-    def getImage(self):
-        return self.image
+    @property
+    def baseType(self):
+        """Homebrew RTTI field.
+           Probably will be removed in the future.
+        """
+        return self._baseType
+    @baseType.setter
+    def baseType(self, value):
+        self._baseType = value
 
-    def get_height(self):
-        return self.image.get_height()
-    def get_width(self):
-        return self.image.get_width()
-
-    def setConstraints(self, x, y):
-        self.constraints = Coord(x, y)
-        
-    def getConstraints(self):
-        return self.constraints.getXY()
+    @property
+    def constraints(self):
+        """Bounding box, defining allowed positions of movable objects.
+           Will be moved to 'Movable' class in the future"""
+        return self._constraints
+    @constraints.setter
+    def constraints(self, value):
+        self._constraints = value
