@@ -1,4 +1,4 @@
 clean:
-	rm -f *~ *.pyc \#*
+	rm -f *~ *.pyc \#* sources/*.pyc
 
 .PHONY: clean count
