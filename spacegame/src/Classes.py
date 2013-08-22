@@ -1,7 +1,7 @@
 import sys
 
 #from .game import *
-from .entity import *
+from .core.entity import *
 
 class CShip(CEntity):
     def __init__(self):

@@ -1,4 +1,4 @@
-from .core.Classes import *
+from .Classes import *
 import pygame
 
 class State(object):
