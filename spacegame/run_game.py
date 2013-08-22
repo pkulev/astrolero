@@ -9,16 +9,16 @@ class SGame(CGame):
         self.setBackground('res/space.jpg')
         
         #playership
-        self.playerShip = PlayerShip(0,0)
-        self.playerShip.setImage('res/image 17.png')
-        self.playerShip.setXY(
-        self.display.get_width() / 2 - self.playerShip.get_width() / 2, 
-            self.display.get_height() - self.playerShip.get_height())
-        self.playerShip.setConstraints(
+        playerShip = PlayerShip(0,0)
+        playerShip.setImage('res/image 17.png')
+        playerShip.setXY(
+            self.display.get_width() / 2 - playerShip.get_width() / 2, 
+            self.display.get_height() - playerShip.get_height())
+        playerShip.setConstraints(
             self.display.get_width(), 
             self.display.get_height())
 
-        self.gameObjects.append(self.playerShip)
+        self.addGameObject(self.playerShip)
 
     def handleEvent(self, event):
         pass
