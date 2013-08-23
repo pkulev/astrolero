@@ -1,4 +1,4 @@
-#-*- encoding: utf-8 -*-
+#-*- coding: utf-8 -*-
 #! /usr/bin/env python
 from src.game import CGame, Application
 from src.Classes import *
