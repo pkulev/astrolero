@@ -1,4 +1,4 @@
-pygame-study
-============
+PYГАМЕ: СТАДNЯ
+==============
 
-small pygame games just4fun
+Innovative pygame game.
