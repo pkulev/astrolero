@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 from src.game import CGame, Application
 from src.Classes import *
+from src.Controller import *
 
 class SGame(CGame):
     def __init__(self):

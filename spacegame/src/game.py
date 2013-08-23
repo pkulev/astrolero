@@ -48,7 +48,7 @@ class CGame(State):
         pygame.display.set_caption(caption)
         return display
 
-    def quit(self):
+    def exitGame(self):
         pygame.quit()
         sys.exit()
 
@@ -57,7 +57,7 @@ class CGame(State):
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == 'QUIT': quit()
+            if event.type == 'QUIT': self.exitGame()
             self.handleEvent(event)
 
     def updateState(self):
