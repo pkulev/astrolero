@@ -1,6 +1,5 @@
 import sys
 
-#from .game import *
 from .core.entity import *
 
 class CShip(CEntity):
@@ -22,4 +21,5 @@ class PlayerShip(CShip):
 
 class EnemyShip(CShip):
     def __init__(self, startX, startY):
+        super(EnemyShip, self).__init__()
         self.baseType = "EnemyShip"
