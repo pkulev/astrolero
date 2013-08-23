@@ -1,6 +1,7 @@
 #! /usr/bin/env python
-from sources.game import CGame, Application
-from sources.Classes import *
+from src.game import CGame, Application
+from src.Classes import *
+from src.Controller import *
 
 class SGame(CGame):
     def __init__(self):
@@ -10,7 +11,7 @@ class SGame(CGame):
         
         #playership
         playerShip = PlayerShip(0,0)
-        playerShip.image = 'res/image 17.png'
+        playerShip.image = 'res/Ship1.png'
         playerShip.x = self.display.get_width() / 2 - playerShip.width / 2
         playerShip.y = self.display.get_height() - playerShip.height
         playerShip.constraints.x = self.display.get_width()
@@ -18,8 +19,8 @@ class SGame(CGame):
 
         self.addGameObject(playerShip)
 
-        pygame.mixer.music.load('res/coll.ogg')
-        pygame.mixer.music.play(1, 1)
+        pygame.mixer.music.load('res/runaway.ogg')
+        pygame.mixer.music.play(-1, 0.0)
 
 
     def handleEvent(self, event):
@@ -30,4 +31,3 @@ if __name__ == "__main__":
     App.addState(SGame(), "game")
     App.state = "game"
     App.start()
-
