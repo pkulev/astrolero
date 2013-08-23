@@ -2,6 +2,14 @@ from .Classes import *
 import pygame
 
 class State(object):
+    def __init__(self, owner):
+        self._owner = owner
+
+    @property
+    def owner(self):
+        """Application - owner of the state"""
+        return self._owner
+        
     def handleEvents(self):
         raise NotImplementedError("handleEvents method not implemented")
 
@@ -13,25 +21,11 @@ class State(object):
 
 class CGame(State):
 
-    def __init__(self, caption):
-        self.FPS = 60
-        self.fpsClock = pygame.time.Clock()
-        
-        self.width = 640
-        self.height = 480
-        self.depth = 32
-
-        self.fullscreen = 0
-
-        self.display = self.createWindow(self.width, self.height, 
-                                         self.fullscreen, self.depth, 
-                                         caption) 
-
+    def __init__(self, owner):
+        super(CGame, self).__init__(owner)
         self._gameObjects = []
-        self._prevGOlist = [] #added for filter spam
-
-        #background
-        self.bg = None
+        
+        self.background = None
     
         pygame.mixer.init()
        
@@ -39,15 +33,8 @@ class CGame(State):
         self._gameObjects.append(gameObject)
 
     def setBackground(self, path):
-        self.bg = pygame.image.load(path)
+        self.background = pygame.image.load(path)
         
-    def createWindow(self, width, height, fullscreen, depth, 
-                     caption="game"):
-        pygame.init()
-        display = pygame.display.set_mode((width, height), fullscreen, depth)
-        pygame.display.set_caption(caption)
-        return display
-
     def exitGame(self):
         pygame.quit()
         sys.exit()
@@ -57,7 +44,7 @@ class CGame(State):
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == 'QUIT': self.exitGame()
+            if event.type == pygame.QUIT: self.exitGame()
             self.handleEvent(event)
 
     def updateState(self):
@@ -65,25 +52,38 @@ class CGame(State):
             i.updateState()
 
     def drawScreen(self):
-        if self._prevGOlist != self._gameObjects:
-            print(self._gameObjects)
-            self._prevGOlist = self._gameObjects[:]
+        self.owner.display.fill(pygame.Color(0,0,0,1))
 
-        
-        self.display.fill(pygame.Color(0,0,0,1))
-
-        self.display.blit(self.bg, (0, 0))
+        self.owner.display.blit(self.background, (0, 0))
         
         for i in self._gameObjects:
-            self.display.blit(i.image, (i.x, i.y))
-
-        pygame.display.update()
-        self.fpsClock.tick(self.FPS)
+            self.owner.display.blit(i.image, (i.x, i.y))
 
 class Application(object):
-    def __init__(self):
+    def __init__(self, caption):
+        pygame.display
+
         self._state = None
         self.states = {}
+        
+        self.FPS = 60
+        self.fpsClock = pygame.time.Clock()
+        
+        self.width = 640
+        self.height = 480
+        self.depth = 32
+        self.caption = caption
+
+        self.fullscreen = 0
+
+        self.display = self.createWindow()
+
+    def createWindow(self):
+        display = pygame.display.set_mode((self.width, self.height),
+                                          self.fullscreen, 
+                                          self.depth)
+        pygame.display.set_caption(self.caption)
+        return display
 
     @property
     def state(self):
@@ -100,11 +100,14 @@ class Application(object):
         else:
             raise KeyError("There is no state with name {0}".format(name))
 
-    def addState(self, state, name):
-        self.states[name] = state
+    def addState(self, stateClass, name):
+        self.states[name] = stateClass(self)
         
     def start(self):
         while True:
             self.state.handleEvents()
             self.state.updateState()
             self.state.drawScreen()
+            
+            pygame.display.update()
+            self.fpsClock.tick(self.FPS)
