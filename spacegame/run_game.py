@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 #! /usr/bin/env python
-from src.core.state import InGame
+from src.core.state import InGame, MainMenu
 from src.core.application import Application
 from src.game_entities import *
 from pygame.locals import *
@@ -12,7 +12,7 @@ class SGame(InGame):
         self.keydown_events = None
         self.keyup_events = None
 
-        self.setBackground('res/space.jpg')
+        self.background = 'res/space.jpg'
         
         #playership
         playerShip = PlayerShip(0,0)
@@ -45,11 +45,22 @@ class SGame(InGame):
     def movePlayerShip(self, (dx, dy)):
         print("moved")
 
+class SMainMenu(MainMenu):
+    def __init__(self, owner):
+        super(SMainMenu, self).__init__(owner)
 
+        self.background = 'res/mainmenu/logo.png'
+
+        self.addMenu("Hello, Menu!",
+                     {"Wololo": lambda: None})
+        self.setCurrentMenu("Hello, Menu!")
 
 
 if __name__ == "__main__":
     App = Application("PYГAME: CTAДNЯ")
     App.addState(SGame, "game")
-    App.state = "game"
+    App.addState(SMainMenu, "mainMenu")
+    
+    
+    App.state = "mainMenu"
     App.start()
