@@ -76,6 +76,7 @@ class MainMenu(State):
                                    self._menus)[0]
 
     def handleEvents(self):
+        if pygame.event.get([pygame.QUIT]): self.owner.exitGame()
         for event in pygame.event.get([pygame.KEYDOWN]):
             self._currentMenu.handleEvents(event)
 
