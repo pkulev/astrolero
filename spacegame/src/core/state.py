@@ -39,7 +39,7 @@ class InGame(State):
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: owner.exitGame()
+            if event.type == pygame.QUIT: self._owner.exitGame()
             self.handleEvent(event)
 
     def updateState(self):
