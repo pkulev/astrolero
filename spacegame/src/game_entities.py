@@ -6,6 +6,7 @@ class Ship(Entity):
     def __init__(self):
         super(Ship, self).__init__(None)
 
+    
 class PlayerShip(Ship):
     def __init__(self, startX, startY):
         super(PlayerShip, self).__init__()
