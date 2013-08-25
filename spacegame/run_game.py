@@ -9,6 +9,9 @@ class SGame(InGame):
     def __init__(self, owner):
         super(SGame, self).__init__(owner)
         
+        self.keydown_events = None
+        self.keyup_events = None
+
         self.setBackground('res/space.jpg')
         
         #playership
@@ -25,8 +28,9 @@ class SGame(InGame):
         pygame.mixer.music.play(-1, 0.0)
 
     def handleKeydown(self, key):
-        {K_ESCAPE: self.owner.exitGame
-         }.get(key, lambda: None)()
+        {K_ESCAPE: self._owner.exitGame,
+         K_w: lambda: self.movePlayerShip((5,5))
+        }.get(key, lambda: None)()
 
     def handleKeyup(self, key):
         pass        
@@ -38,6 +42,10 @@ class SGame(InGame):
             self.handleKeyup(event.key)
         else: pass
           
+    def movePlayerShip(self, (dx, dy)):
+        print("moved")
+
+
 
 
 if __name__ == "__main__":

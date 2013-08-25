@@ -4,7 +4,6 @@ from . import state
 
 class Application(object):
     def __init__(self, caption):
-        pygame.display
 
         self._state = None
         self.states = {}
@@ -20,6 +19,8 @@ class Application(object):
         self.fullscreen = 0
 
         self.display = self.createWindow()
+        pygame.key.set_repeat(50,50)
+
 
     def createWindow(self):
         display = pygame.display.set_mode((self.width, self.height),
