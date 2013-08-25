@@ -35,16 +35,12 @@ class CGame(State):
     def setBackground(self, path):
         self.background = pygame.image.load(path)
         
-    def exitGame(self):
-        pygame.quit()
-        sys.exit()
-
     def handleEvent(self, event):
         raise NotImplementedError("Should have implemented this function")
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: self.exitGame()
+            if event.type == pygame.QUIT: owner.exitGame()
             self.handleEvent(event)
 
     def updateState(self):
@@ -84,6 +80,10 @@ class Application(object):
                                           self.depth)
         pygame.display.set_caption(self.caption)
         return display
+
+    def exitGame(self):
+        pygame.quit()
+        sys.exit()
 
     @property
     def state(self):
