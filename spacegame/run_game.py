@@ -1,10 +1,11 @@
 #-*- coding: utf-8 -*-
 #! /usr/bin/env python
-from src.game import CGame, Application
-from src.Classes import *
+from src.core.state import InGame
+from src.core.application import Application
+from src.game_entities import *
 from pygame.locals import *
 
-class SGame(CGame):
+class SGame(InGame):
     def __init__(self, owner):
         super(SGame, self).__init__(owner)
         

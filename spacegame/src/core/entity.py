@@ -45,7 +45,7 @@ class Gizmo(object):
     def height(self, value):
         self._height = value
 
-class CEntity(Gizmo):
+class Entity(Gizmo):
     """Base class for all in-game objects.
        Defines position, size, constraints (if present),
        visibility, image and type of game object.
@@ -54,7 +54,7 @@ class CEntity(Gizmo):
     """
     
     def __init__(self, owner = None):
-        super(CEntity, self).__init__(0, 0)
+        super(Entity, self).__init__(0, 0)
         self._owner = owner 
         self._constraints = Gizmo(0, 0)
         self._baseType = None
