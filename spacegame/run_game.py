@@ -2,6 +2,7 @@
 #! /usr/bin/env python
 from src.game import CGame, Application
 from src.Classes import *
+#from pygame.locals import *
 
 class SGame(CGame):
     def __init__(self, owner):
@@ -22,9 +23,21 @@ class SGame(CGame):
         pygame.mixer.music.load('res/runaway.ogg')
         pygame.mixer.music.play(-1, 0.0)
 
+    def handleKeydown(self, key):
+        {pygame.K_ESCAPE: self.owner.exitGame
+         }.get(key, lambda: None)()
+
+    def handleKeyup(self, key):
+        pass        
 
     def handleEvent(self, event):
-        pass
+        if event.type == pygame.KEYDOWN:
+            self.handleKeydown(event.key)
+        elif event.type == pygame.KEYUP:
+            self.handleKeyup(event.key)
+        else: pass
+          
+
 
 if __name__ == "__main__":
     App = Application("PYГAME: CTAДNЯ")
