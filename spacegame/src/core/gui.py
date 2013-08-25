@@ -82,8 +82,9 @@ class SubMenu(object):
     def draw(self):
         font = pygame.font.Font(None, 36)
         text = font.render(self._caption, 1, (0, 0, 0, 1))
-        text.get_rect().centerx = self.owner.owner.width / 2
-        text.get_rect().centery = 20
+        textpos = text.get_rect()
+        textpos.centerx = self.owner.owner.width / 2
+        self.owner.owner.display.blit(text, textpos)
 
         for i in self._menuItems:
             i.draw()
