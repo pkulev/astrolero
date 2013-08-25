@@ -2,11 +2,11 @@ import sys
 
 from .core.entity import *
 
-class CShip(CEntity):
+class Ship(Entity):
     def __init__(self):
-        super(CShip, self).__init__(None)
+        super(Ship, self).__init__(None)
 
-class PlayerShip(CShip):
+class PlayerShip(Ship):
     def __init__(self, startX, startY):
         super(PlayerShip, self).__init__()
         self.x = startX
@@ -19,7 +19,7 @@ class PlayerShip(CShip):
     def updatePosition(self):
         pass
 
-class EnemyShip(CShip):
+class EnemyShip(Ship):
     def __init__(self, startX, startY):
         super(EnemyShip, self).__init__()
         self.baseType = "EnemyShip"
