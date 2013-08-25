@@ -9,9 +9,6 @@ class SGame(InGame):
     def __init__(self, owner):
         super(SGame, self).__init__(owner)
         
-        self.keydown_events = None
-        self.keyup_events = None
-
         self.background = 'res/space.jpg'
         
         #playership
