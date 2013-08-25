@@ -3,11 +3,15 @@ import pygame
 class State(object):
     def __init__(self, owner):
         self._owner = owner
+        self.background  = None
 
     @property
     def owner(self):
         """Application - owner of the state"""
         return self._owner
+
+    def setBackground(self, path):
+        self.background = pygame.image.load(path)
         
     def handleEvents(self):
         raise NotImplementedError("handleEvents method not implemented")
@@ -24,22 +28,17 @@ class InGame(State):
         super(InGame, self).__init__(owner)
         self._gameObjects = []
         
-        self.background = None
-    
         pygame.mixer.init()
        
     def addGameObject(self, gameObject):
         self._gameObjects.append(gameObject)
 
-    def setBackground(self, path):
-        self.background = pygame.image.load(path)
-        
     def handleEvent(self, event):
         raise NotImplementedError("Should have implemented this function")
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: owner.exitGame()
+            if event.type == pygame.QUIT: self.owner.exitGame()
             self.handleEvent(event)
 
     def updateState(self):
@@ -53,3 +52,6 @@ class InGame(State):
         
         for i in self._gameObjects:
             self.owner.display.blit(i.image, (i.x, i.y))
+
+
+    
