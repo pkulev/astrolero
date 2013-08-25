@@ -2,7 +2,7 @@
 #! /usr/bin/env python
 from src.game import CGame, Application
 from src.Classes import *
-#from pygame.locals import *
+from pygame.locals import *
 
 class SGame(CGame):
     def __init__(self, owner):
@@ -24,7 +24,7 @@ class SGame(CGame):
         pygame.mixer.music.play(-1, 0.0)
 
     def handleKeydown(self, key):
-        {pygame.K_ESCAPE: self.owner.exitGame
+        {K_ESCAPE: self.owner.exitGame
          }.get(key, lambda: None)()
 
     def handleKeyup(self, key):
