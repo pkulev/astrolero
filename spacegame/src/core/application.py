@@ -1,4 +1,5 @@
 import pygame
+import sys
 from . import state
 
 class Application(object):
