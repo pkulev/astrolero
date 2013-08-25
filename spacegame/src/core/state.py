@@ -133,7 +133,7 @@ class MainMenu(State):
             new_menu.addMenuItem(entry, action)
         self._menus.append(new_menu)
 
-   def setCurrentMenu(self, caption):
+    def setCurrentMenu(self, caption):
         self._currentMenu = filter(lambda m: m.caption == caption,
                                    self._menus)
                     

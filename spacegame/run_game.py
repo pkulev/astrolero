@@ -28,8 +28,8 @@ class SGame(InGame):
         pygame.mixer.music.play(-1, 0.0)
 
     def handleKeydown(self, key):
-        {K_ESCAPE: self._owner.exitGame,
-         K_w: lambda: self.movePlayerShip((5,5))
+        {K_ESCAPE: self.owner.exitGame,
+         K_w: lambda: self.movePlayerShip(5,5)
         }.get(key, lambda: None)()
 
     def handleKeyup(self, key):
@@ -42,7 +42,7 @@ class SGame(InGame):
             self.handleKeyup(event.key)
         else: pass
           
-    def movePlayerShip(self, (dx, dy)):
+    def movePlayerShip(self, dx, dy):
         print("moved")
 
 
