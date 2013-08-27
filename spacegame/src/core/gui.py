@@ -54,14 +54,17 @@ class BarGauge(GuiElement):
     def draw(self):
        pass
 
-class SubMenu(object):
+class SubMenu(GuiElement):
     def __init__(self, owner, caption):
-        self.owner = owner
+        super(SubMenu, self).__init__(owner)
         #up to 8 fancy items!
         self._caption = caption
         self._menuItems = []
         self._position = 0
         self._selector = None
+
+    def __call__(self):
+        pass
 
     @property
     def caption(self):
