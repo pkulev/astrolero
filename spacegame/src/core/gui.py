@@ -62,6 +62,7 @@ class SubMenu(GuiElement):
         self._menuItems = []
         self._position = 0
         self._selector = None
+        self.font = 48
 
     def __call__(self):
         pass
@@ -100,7 +101,7 @@ class SubMenu(GuiElement):
     def draw(self):
         text = self._font.render(self._caption, 1, (0, 0, 0, 1))
         textpos = text.get_rect()
-        textpos.centerx = self.appliction.width / 2
+        textpos.centerx = self.application.width / 2
         self.application.display.blit(text, textpos)
 
         for i in self._menuItems:
