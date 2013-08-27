@@ -38,6 +38,14 @@ class MenuButton(GuiElement):
         self._action = action
         self.font = 48
 
+    @property
+    def text(self):
+        """Button caption"""
+        return self._text
+    @text.setter
+    def text(self, text):
+        self._text = text
+
     def __call__(self, event):
         if event.key == K_RETURN:
             return self._action()
