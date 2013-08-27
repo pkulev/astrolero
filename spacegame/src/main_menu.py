@@ -1,4 +1,6 @@
 from .core.state import State
+from .core.gui import *
+import pygame
 
 class MainMenu(State):
     def __init__(self, owner):

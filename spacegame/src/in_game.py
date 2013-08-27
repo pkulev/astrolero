@@ -1,4 +1,5 @@
 from .core.state import State
+import pygame
 
 class InGame(State):
     def __init__(self, owner):
