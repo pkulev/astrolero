@@ -65,13 +65,40 @@ class SubMenu(GuiElement):
         super(SubMenu, self).__init__(owner)
         #up to 8 fancy items!
         self._caption = caption
+        self._caption_center_y = 20
         self._menuItems = []
         self._position = 0
         self._selector = None
+        self._menu_center_y = 100
+        self._menu_item_height = 60
         self.font = 72
 
     def __call__(self):
         pass
+
+    @property
+    def menu_center_y(self):
+        """Starting menu height. Defaults to 100 px."""
+        return self._menu_center_y
+    @menu_center_y.setter
+    def menu_center_y(self, val):
+        self._menu_center_y = val
+
+    @property
+    def item_height(self):
+        """Menu item height in pixels. Default is 60"""
+        return self._menu_item_height
+    @item_height.setter
+    def item_height(self):
+        self._menu_item_height = val
+
+    @property
+    def caption_center_y(self):
+        """Y position of menu caption. Default is 20"""
+        return self._caption_center_y
+    @caption_center_y.setter
+    def caption_center_y(self, val):
+        self._caption_center_y = val
 
     @property
     def caption(self):
@@ -108,8 +135,8 @@ class SubMenu(GuiElement):
         text = self._font.render(self._caption, 1, (255, 255, 255))
         textpos = text.get_rect()
         textpos.centerx = self.application.width / 2
-        textpos.centery = 40
+        textpos.centery = self._caption_center_y
         self.application.display.blit(text, textpos)
 
         for i,m in enumerate(self._menuItems):
-            m.draw(200 + i * 60)
+            m.draw(self._menu_center_y + i * self._menu_item_height)
