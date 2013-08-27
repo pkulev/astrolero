@@ -11,8 +11,8 @@ class Application(object):
         self.FPS = 60
         self.fpsClock = pygame.time.Clock()
         
-        self.width = 640
-        self.height = 480
+        self.width = 800
+        self.height = 600
         self.depth = 32
         self.caption = caption
 
