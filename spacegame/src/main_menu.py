@@ -10,6 +10,9 @@ class MainMenu(State):
         self._currentMenu = None
 
     def addMenu(self, caption, item_action_dict):
+        if caption in list(map(lambda m: m.caption,
+                               self._menus)):
+            raise KeyError("Menu '{0}' already exists".format(caption))
         new_menu = SubMenu(self, caption)
         for entry, action in item_action_dict.items():
             new_menu.addMenuItem(entry, action)
@@ -20,6 +23,9 @@ class MainMenu(State):
                            self._menus))[0]
 
     def setCurrentMenu(self, caption):
+        if caption not in list(map(lambda m: m.caption,
+                                   self._menus)):
+            raise KeyError("Menu '{0}' does not exist".format(caption))
         self._currentMenu = list(filter(lambda m: m.caption == caption,
                                         self._menus))[0]
 
