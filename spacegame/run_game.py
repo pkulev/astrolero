@@ -51,9 +51,11 @@ class SMainMenu(MainMenu):
         self.music = 'res/runaway.ogg'
         self.play_music()
         
-        self.addMenu("Hello, Menu!",
-                     {"Wololo": lambda: None})
-        self.setCurrentMenu("Hello, Menu!")
+        self.addMenu("Main Menu",
+                     {"Start Game": lambda: None})
+        self.getMenu("Main Menu").menu_center_y = 300
+        self.getMenu("Main Menu").caption_center_y = 250
+        self.setCurrentMenu("Main Menu")
 
 
 if __name__ == "__main__":

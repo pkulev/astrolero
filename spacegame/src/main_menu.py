@@ -15,6 +15,10 @@ class MainMenu(State):
             new_menu.addMenuItem(entry, action)
         self._menus.append(new_menu)
 
+    def getMenu(self, menu_caption):
+        return list(filter(lambda m: m.caption == menu_caption,
+                           self._menus))[0]
+
     def setCurrentMenu(self, caption):
         self._currentMenu = list(filter(lambda m: m.caption == caption,
                                         self._menus))[0]
