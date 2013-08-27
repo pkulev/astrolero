@@ -6,7 +6,7 @@ class State(object):
     def __init__(self, owner):
         self._owner = owner
         self._background  = None
-
+        self._music = None
     @property
     def owner(self):
         """Application - owner of the state"""
@@ -19,7 +19,14 @@ class State(object):
     @background.setter
     def background(self, path):
         self._background = pygame.image.load(path)
-        
+
+    @property
+    def music(self):
+        return self._music
+    @music.setter
+    def music(self, path):
+        self._music = pygame.mixer.music.load(path)
+
     def handleEvents(self):
         raise NotImplementedError("handleEvents method not implemented")
 

@@ -20,10 +20,7 @@ class SGame(InGame):
         playerShip.constraints.y = self.owner.display.get_height()
 
         self.addGameObject(playerShip)
-
-        pygame.mixer.music.load('res/runaway.ogg')
-        pygame.mixer.music.play(-1, 0.0)
-
+        
     def handleKeydown(self, key):
         {K_ESCAPE: self.owner.exitGame,
          K_w: lambda: self.movePlayerShip(5, 5),
@@ -50,7 +47,9 @@ class SMainMenu(MainMenu):
         super(SMainMenu, self).__init__(owner)
 
         self.background = 'res/mainmenu/logo.png'
-
+        self.music = 'res/runaway.ogg'
+        self.music.play(-1, 0.0)
+        
         self.addMenu("Hello, Menu!",
                      {"Wololo": lambda: None})
         self.setCurrentMenu("Hello, Menu!")
