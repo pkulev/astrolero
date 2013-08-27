@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 #! /usr/bin/env python
-from src.core.state import InGame, MainMenu
+from src.main_menu import MainMenu
+from src.in_game import InGame
 from src.core.application import Application
 from src.game_entities import *
 from pygame.locals import *
