@@ -1,4 +1,5 @@
 import pygame
+from copy import copy
 from pygame.locals import *
 
 class GuiElement(object):
@@ -76,7 +77,7 @@ class SubMenu(GuiElement):
         self._caption_center_y = 20
         self._menuItems = []
         self._position = 0
-        self._selector = ""
+        self._selector = "-=-"
         self._menu_center_y = 100
         self._menu_item_height = 60
         self.font = 72
@@ -115,7 +116,7 @@ class SubMenu(GuiElement):
 
     @property
     def selector(self):
-        """Cursor character"""
+        """Cursor string. Default is '-=-'"""
         return self._selector
     @selector.setter
     def selector(self, value):
@@ -129,7 +130,7 @@ class SubMenu(GuiElement):
     def handleEvents(self, event):
         if event.key == K_DOWN:
             self._position += 1
-            if self._position > len(self._menuItems):
+            if self._position == len(self._menuItems):
                 self._position = 0
         elif event.key == K_UP:
             self._position -= 1
@@ -146,5 +147,13 @@ class SubMenu(GuiElement):
         textpos.centery = self._caption_center_y
         self.application.display.blit(text, textpos)
 
-        for i,m in enumerate(self._menuItems):
-            m.draw(self._menu_center_y + i * self._menu_item_height)
+        for i, m in enumerate(self._menuItems):
+            # Delicious crutch
+            if i == self._position:
+                copied = copy(m)
+                copied.text = self._selector + " " + m.text + " " + self._selector
+                copied.draw(self._menu_center_y + i * self._menu_item_height)
+            else:
+                m.draw(self._menu_center_y + i * self._menu_item_height)
+                            
+                
