@@ -4,11 +4,20 @@ from pygame.locals import *
 class GuiElement(object):
     def __init__(self, owner):
         self._owner = owner
+        self._font = None
 
     @property
     def owner(self):
         """State - owner of GUI element"""
         return self._owner
+
+    @property
+    def font(self):
+        """Current font. You can specify it's size"""
+        return self._font
+    @font.setter
+    def font(self, size):
+        self._font = pygame.font.Font(None, size)
 
     def draw(self):
         raise NotImplementedError("All GUI element must specify draw method")
@@ -80,8 +89,7 @@ class SubMenu(object):
                 m(event)
 
     def draw(self):
-        font = pygame.font.Font(None, 36)
-        text = font.render(self._caption, 1, (0, 0, 0, 1))
+        text = self._font.render(self._caption, 1, (0, 0, 0, 1))
         textpos = text.get_rect()
         textpos.centerx = self.owner.owner.width / 2
         self.owner.owner.display.blit(text, textpos)
