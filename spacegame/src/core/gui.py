@@ -105,10 +105,11 @@ class SubMenu(GuiElement):
                 m(event)
 
     def draw(self):
-        text = self._font.render(self._caption, 1, (0, 0, 0, 1))
+        text = self._font.render(self._caption, 1, (255, 255, 255))
         textpos = text.get_rect()
         textpos.centerx = self.application.width / 2
+        textpos.centery = 40
         self.application.display.blit(text, textpos)
 
-        for i in self._menuItems:
-            i.draw()
+        for i,m in enumerate(self._menuItems):
+            m.draw(200 + i * 60)
