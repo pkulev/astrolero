@@ -68,7 +68,7 @@ class SubMenu(GuiElement):
         self._caption_center_y = 20
         self._menuItems = []
         self._position = 0
-        self._selector = None
+        self._selector = ""
         self._menu_center_y = 100
         self._menu_item_height = 60
         self.font = 72
@@ -107,11 +107,11 @@ class SubMenu(GuiElement):
 
     @property
     def selector(self):
-        """Cursor image"""
+        """Cursor character"""
         return self._selector
     @selector.setter
-    def selector(self, path):
-        self._selector = pygame.image.load(path)
+    def selector(self, value):
+        self._selector = value
 
     def addMenuItem(self, text, action):
         if len(self._menuItems) >= 8:
