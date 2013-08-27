@@ -67,13 +67,13 @@ class MainMenu(State):
 
     def addMenu(self, caption, item_action_dict):
         new_menu = SubMenu(self, caption)
-        for entry, action in item_action_dict.iteritems():
+        for entry, action in item_action_dict.items():
             new_menu.addMenuItem(entry, action)
         self._menus.append(new_menu)
 
     def setCurrentMenu(self, caption):
-        self._currentMenu = filter(lambda m: m.caption == caption,
-                                   self._menus)[0]
+        self._currentMenu = list(filter(lambda m: m.caption == caption,
+                                        self._menus))[0]
 
     def handleEvents(self):
         if pygame.event.get([pygame.QUIT]): self.owner.exitGame()

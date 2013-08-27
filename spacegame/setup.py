@@ -6,6 +6,7 @@ from distutils.core import setup
 #    tutor/
 #    spacegame/
 #        Makefile
+#        deltemp.bat
 #        README.txt
 #        setup.py
 #        run_game.py [x]

@@ -26,7 +26,10 @@ class SGame(InGame):
 
     def handleKeydown(self, key):
         {K_ESCAPE: self.owner.exitGame,
-         K_w: lambda: self.movePlayerShip(5,5)
+         K_w: lambda: self.movePlayerShip(5, 5),
+         K_a: lambda: self.movePlayerShip(5. -5),
+         K_s: lambda: self.movePlayerShip(-5, 5),
+         K_d: lambda: self.movePlayerShip(5, -5)
         }.get(key, lambda: None)()
 
     def handleKeyup(self, key):
