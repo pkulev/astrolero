@@ -41,8 +41,13 @@ class MenuButton(GuiElement):
         if event.key == K_RETURN:
             return self._action()
 
-    def draw(self):
-        pass
+    def draw(self, height):
+        """Draws button centered horizontally, at the height pixels"""
+        text = self._font.render(self._text, 1, (255, 255, 255, 255))
+        textpos = text.get_rect()
+        textpos.centerx = self.application.width / 2
+        textpos.centery = height
+        self.application.display.blit(text, textpos)
 
 class BarGauge(GuiElement):
     def __init__(self, owner):
