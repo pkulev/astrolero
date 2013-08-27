@@ -36,6 +36,7 @@ class MenuButton(GuiElement):
         super(MenuButton, self).__init__(owner)
         self._text = text
         self._action = action
+        self.font = 48
 
     def __call__(self, event):
         if event.key == K_RETURN:
@@ -67,7 +68,7 @@ class SubMenu(GuiElement):
         self._menuItems = []
         self._position = 0
         self._selector = None
-        self.font = 48
+        self.font = 72
 
     def __call__(self):
         pass
