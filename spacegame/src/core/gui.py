@@ -4,12 +4,18 @@ from pygame.locals import *
 class GuiElement(object):
     def __init__(self, owner):
         self._owner = owner
+        self._application = owner.owner
         self._font = None
 
     @property
     def owner(self):
         """State - owner of GUI element"""
         return self._owner
+
+    @property
+    def application(self):
+        """Master application"""
+        return self._application
 
     @property
     def font(self):
@@ -91,8 +97,8 @@ class SubMenu(object):
     def draw(self):
         text = self._font.render(self._caption, 1, (0, 0, 0, 1))
         textpos = text.get_rect()
-        textpos.centerx = self.owner.owner.width / 2
-        self.owner.owner.display.blit(text, textpos)
+        textpos.centerx = self.appliction.width / 2
+        self.application.display.blit(text, textpos)
 
         for i in self._menuItems:
             i.draw()
