@@ -50,10 +50,11 @@ class SMainMenu(MainMenu):
         self.background = 'res/mainmenu/logo.png'
         self.music = 'res/runaway.ogg'
         self.play_music()
-        self.selector = "→"
         self.addMenu("Main Menu",
-                     {"Start Game": lambda: None})
-        self.getMenu("Main Menu").menu_center_y = 300
+                     {"Start Game": lambda: None,
+                      "Highscores": lambda: None,
+                      "Quit": self.owner.exitGame})
+        self.getMenu("Main Menu").menu_center_y = 320
         self.getMenu("Main Menu").caption_center_y = 250
         self.setCurrentMenu("Main Menu")
 
