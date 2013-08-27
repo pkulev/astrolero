@@ -89,7 +89,7 @@ class SubMenu(GuiElement):
     def addMenuItem(self, text, action):
         if len(self._menuItems) >= 8:
             raise IndexError("Too many menu items")
-        self._menuItems.append(MenuButton(self, text, action))
+        self._menuItems.append(MenuButton(self.owner, text, action))
 
     def handleEvents(self, event):
         if event.key == K_DOWN:
