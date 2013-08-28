@@ -1,5 +1,5 @@
+#! /usr/bin/python
 #-*- coding: utf-8 -*-
-#! /usr/bin/env python
 from src.main_menu import MainMenu
 from src.in_game import InGame
 from src.core.application import Application
