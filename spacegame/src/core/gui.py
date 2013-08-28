@@ -1,5 +1,4 @@
 import pygame
-from copy import copy
 from pygame.locals import *
 
 class GuiElement(object):
