@@ -1,5 +1,4 @@
 import pygame
-from copy import copy
 from pygame.locals import *
 
 class GuiElement(object):
@@ -51,9 +50,10 @@ class MenuButton(GuiElement):
         if event.key == K_RETURN:
             return self._action()
 
-    def draw(self, height):
+    def draw(self, height, selector = ""):
         """Draws button centered horizontally, at the height pixels"""
-        text = self._font.render(self._text, 1, (255, 255, 255, 255))
+        text = self._font.render(selector + " " + self._text + " " + selector, 
+                                 1, (255, 255, 255, 255))
         textpos = text.get_rect()
         textpos.centerx = self.application.width / 2
         textpos.centery = height
@@ -137,8 +137,7 @@ class SubMenu(GuiElement):
             if self._position < 0:
                 self._position = len(self._menuItems)
         else:
-            for m in self._menuItems:
-                m(event)
+            self._menuItems[self._position](event)
 
     def draw(self):
         text = self._font.render(self._caption, 1, (255, 255, 255))
@@ -148,12 +147,8 @@ class SubMenu(GuiElement):
         self.application.display.blit(text, textpos)
 
         for i, m in enumerate(self._menuItems):
-            # Delicious crutch
             if i == self._position:
-                copied = copy(m)
-                copied.text = self._selector + " " + m.text + " " + self._selector
-                copied.draw(self._menu_center_y + i * self._menu_item_height)
+                m.draw(self._menu_center_y + i * self._menu_item_height,
+                       self._selector)
             else:
                 m.draw(self._menu_center_y + i * self._menu_item_height)
-                            
-                
