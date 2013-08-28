@@ -51,9 +51,10 @@ class MenuButton(GuiElement):
         if event.key == K_RETURN:
             return self._action()
 
-    def draw(self, height):
+    def draw(self, height, selector = ""):
         """Draws button centered horizontally, at the height pixels"""
-        text = self._font.render(self._text, 1, (255, 255, 255, 255))
+        text = self._font.render(selector + " " + self._text + " " + selector, 
+                                 1, (255, 255, 255, 255))
         textpos = text.get_rect()
         textpos.centerx = self.application.width / 2
         textpos.centery = height
@@ -150,10 +151,7 @@ class SubMenu(GuiElement):
         for i, m in enumerate(self._menuItems):
             # Delicious crutch
             if i == self._position:
-                copied = copy(m)
-                copied.text = self._selector + " " + m.text + " " + self._selector
-                copied.draw(self._menu_center_y + i * self._menu_item_height)
+                m.draw(self._menu_center_y + i * self._menu_item_height,
+                       self._selector)
             else:
                 m.draw(self._menu_center_y + i * self._menu_item_height)
-                            
-                
