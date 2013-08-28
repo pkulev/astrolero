@@ -14,7 +14,9 @@ class MainMenu(State):
                                self._menus)):
             raise KeyError("Menu '{0}' already exists".format(caption))
         new_menu = SubMenu(self, caption)
+        print(item_action_dict)
         for entry, action in item_action_dict.items():
+            print(entry)
             new_menu.addMenuItem(entry, action)
         self._menus.append(new_menu)
 

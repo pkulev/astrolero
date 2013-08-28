@@ -137,8 +137,7 @@ class SubMenu(GuiElement):
             if self._position < 0:
                 self._position = len(self._menuItems)
         else:
-            for m in self._menuItems:
-                m(event)
+            self._menuItems[self._position](event)
 
     def draw(self):
         text = self._font.render(self._caption, 1, (255, 255, 255))
@@ -148,7 +147,6 @@ class SubMenu(GuiElement):
         self.application.display.blit(text, textpos)
 
         for i, m in enumerate(self._menuItems):
-            # Delicious crutch
             if i == self._position:
                 m.draw(self._menu_center_y + i * self._menu_item_height,
                        self._selector)
