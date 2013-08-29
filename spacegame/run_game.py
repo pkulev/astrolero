@@ -22,13 +22,23 @@ class SGame(InGame):
         self._playerShip = playerShip
 
         self.addGameObject(playerShip)
-        
+
+    def updateState(self):
+        key_action_map = {K_w: lambda: self.movePlayerShip(0, -5),
+                          K_a: lambda: self.movePlayerShip(-5, 0),
+                          K_s: lambda: self.movePlayerShip(0, 5),
+                          K_d: lambda: self.movePlayerShip(5, 0)
+                      }
+        pressed_keys = pygame.key.get_pressed()
+        for k in key_action_map:
+            if pressed_keys[k]:
+                key_action_map[k]()
+
+        for i in self._gameObjects:
+            i.updateState()
+
     def handleKeydown(self, key):
-        {K_ESCAPE: lambda: self.owner.setState("mainMenu"),
-         K_w: lambda: self.movePlayerShip(0, -5),
-         K_a: lambda: self.movePlayerShip(-5, 0),
-         K_s: lambda: self.movePlayerShip(0, 5),
-         K_d: lambda: self.movePlayerShip(5, 0)
+        {K_ESCAPE: lambda: self.owner.setState("mainMenu")
         }.get(key, lambda: None)()
 
     def handleKeyup(self, key):
