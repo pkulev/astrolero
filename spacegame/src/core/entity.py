@@ -121,7 +121,7 @@ class Entity(Gizmo):
     @property
     def owner(self):
         """Read only.
-           Entity owner - RM or game object"""
+            Entity owner - RM or game object"""
         return self._owner
         
     @property

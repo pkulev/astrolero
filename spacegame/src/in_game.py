@@ -20,8 +20,7 @@ class InGame(State):
             self.handleEvent(event)
 
     def updateState(self):
-        for i in self._gameObjects:
-            i.updateState()
+        raise NotImplementedError("Should have implemented this function")
 
     def drawScreen(self):
         self.owner.display.fill(pygame.Color(0,0,0,1))
