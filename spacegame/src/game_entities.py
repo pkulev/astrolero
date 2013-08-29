@@ -10,8 +10,8 @@ class Ship(Entity):
 class PlayerShip(Ship):
     def __init__(self, startX, startY):
         super(PlayerShip, self).__init__()
-        self.x = startX
-        self.y = startY
+        self._x = startX
+        self._y = startY
         self.baseType = "PlayerShip"
 
     def updateState(self):
