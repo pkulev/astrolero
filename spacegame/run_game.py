@@ -23,7 +23,7 @@ class SGame(InGame):
         self.addGameObject(playerShip)
         
     def handleKeydown(self, key):
-        {K_ESCAPE: self.owner.exitGame,
+        {K_ESCAPE: lambda: self.owner.setState("mainMenu"),
          K_w: lambda: self.movePlayerShip(5, 5),
          K_a: lambda: self.movePlayerShip(5, -5),
          K_s: lambda: self.movePlayerShip(-5, 5),
@@ -51,7 +51,7 @@ class SMainMenu(MainMenu):
         self.music = 'res/runaway.ogg'
         self.play_music()
         self.addMenu("Main Menu",
-                     [("Start Game", lambda: print("Starting game!")),
+                     [("Start Game", lambda: self.owner.setState("game")),
                       ("Highscores", lambda: print("Showing HighScores!")),
                       ("Quit", self.owner.exitGame)])
         self.getMenu("Main Menu").menu_center_y = 320
