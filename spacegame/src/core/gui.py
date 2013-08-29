@@ -130,12 +130,12 @@ class SubMenu(GuiElement):
     def handleEvents(self, event):
         if event.key == K_DOWN:
             self._position += 1
-            if self._position == len(self._menuItems):
+            if self._position >= len(self._menuItems):
                 self._position = 0
         elif event.key == K_UP:
             self._position -= 1
             if self._position < 0:
-                self._position = len(self._menuItems)
+                self._position = len(self._menuItems) - 1
         else:
             self._menuItems[self._position](event)
 
