@@ -59,9 +59,65 @@ class Entity(Gizmo):
         self._constraints = Gizmo(0, 0)
         self._baseType = None
         self._image = None
+        self._centerx = 0
+        self._centery = 0
 
         self.visible = True
-       
+    
+    @property
+    def x(self):
+        """Horizontal coordinate of top left corner"""
+        return self._x
+    @x.setter
+    def x(self, value):
+        self._x = value
+        self._centerx = value + self._width / 2
+        
+    @property
+    def y(self):
+        """Vertical coordinate of top left corner"""
+        return self._y
+    @y.setter
+    def y(self, value):
+        self._y = value
+        self._centery = value + self._height / 2
+
+    @property
+    def centerx(self):
+        """Entity position x.
+            Takes in account _constraints attribute.
+            When set, recalcutales _x property."""
+        return self._centerx
+    @centerx.setter
+    def centerx(self, value):
+        if ((value + self._width / 2) >
+            (self._constraints.x + self._constraints.width)):
+            pass
+        elif ((value - self._width / 2) <
+              self._constraints.x):
+            pass
+        else:
+            self._centerx = value
+            self._x = value - self._width / 2
+
+    @property
+    def centery(self):
+        """Entity position y.
+            Takes in account _constraints attribute.
+            When set, recalcutales _y property."""
+        return self._centery
+    @centery.setter
+    def centery(self, value):
+        if ((value + self._height / 2) >
+            (self._constraints.y + self._constraints.height)):
+            pass
+        elif ((value - self._height / 2) <
+              self._constraints.y):
+            pass
+        else:
+            self._centery = value
+            self._y = value - self._height / 2
+
     @property
     def owner(self):
         """Read only.
@@ -70,13 +126,18 @@ class Entity(Gizmo):
         
     @property
     def image(self):
-        """Pygame image"""
+        """Pygame image
+            When set, new image dimensions affect _width and _height properties.
+            Centerx and centery are also recalculated when image is set."""
         return self._image
     @image.setter
     def image(self, path):
         self._image = pygame.image.load(path)
         self._width = self._image.get_width()
         self._height = self._image.get_height()
+
+        self._centerx = self._x + self._width / 2
+        self._centery = self._y + self._height / 2
 
     @property
     def baseType(self):
