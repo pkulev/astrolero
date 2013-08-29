@@ -17,8 +17,9 @@ class SGame(InGame):
         playerShip.image = 'res/Ship1.png'
         playerShip.x = self.owner.display.get_width() / 2 - playerShip.width / 2
         playerShip.y = self.owner.display.get_height() - playerShip.height
-        playerShip.constraints.x = self.owner.display.get_width()
-        playerShip.constraints.y = self.owner.display.get_height()
+        playerShip.constraints.width = self.owner.display.get_width()
+        playerShip.constraints.height = self.owner.display.get_height()
+        self._playerShip = playerShip
 
         self.addGameObject(playerShip)
         
