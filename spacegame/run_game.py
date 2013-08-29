@@ -42,7 +42,8 @@ class SGame(InGame):
         else: pass
           
     def movePlayerShip(self, dx, dy):
-        print("moved")
+        self._playerShip.centerx += dx
+        self._playerShip.centery += dy
 
 class SMainMenu(MainMenu):
     def __init__(self, owner):
