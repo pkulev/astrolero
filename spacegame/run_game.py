@@ -24,12 +24,19 @@ class SGame(InGame):
         self.addGameObject(playerShip)
 
     def updateState(self):
-        key_action_map = {K_w: lambda: self.movePlayerShip(0, -5),
-                          K_a: lambda: self.movePlayerShip(-5, 0),
-                          K_s: lambda: self.movePlayerShip(0, 5),
-                          K_d: lambda: self.movePlayerShip(5, 0)
-                      }
+        dx = 5
+        dy = 5
         pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[K_LSHIFT]:
+            dx = 2
+            dy = 2
+
+        key_action_map = {K_w: lambda: self.movePlayerShip(0, -dy),
+                          K_a: lambda: self.movePlayerShip(-dx, 0),
+                          K_s: lambda: self.movePlayerShip(0, dy),
+                          K_d: lambda: self.movePlayerShip(dx, 0)
+                      }
+
         for k in key_action_map:
             if pressed_keys[k]:
                 key_action_map[k]()
