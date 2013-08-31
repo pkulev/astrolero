@@ -34,6 +34,8 @@ class MainMenu(State):
     def handleEvents(self):
         if pygame.event.get([pygame.QUIT]): self.owner.exitGame()
         for event in pygame.event.get([pygame.KEYDOWN]):
+            if event.key == K_ESCAPE:
+                self.setCurrentMenu(self._menus[0].caption)
             self._currentMenu.handleEvents(event)
 
     def updateState(self):
