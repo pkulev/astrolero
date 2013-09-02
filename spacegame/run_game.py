@@ -69,16 +69,20 @@ class SMainMenu(MainMenu):
         self.background = 'res/mainmenu/logo.png'
         self.music = 'res/runaway.ogg'
         self.play_music()
-        self.addMenu("High Scores",
-                     [("foo", lambda: print("foo"))])
         self.addMenu("Main Menu",
                      [("Start Game", lambda: self.owner.setState("game")),
                       ("Highscores", lambda: self.setCurrentMenu("High Scores")),
                       ("Quit", self.owner.exitGame)])
+
+        self.addMenu("High Scores",
+                     [("foo", lambda: print("foo"))])
+
         self.getMenu("Main Menu").menu_center_y = 320
         self.getMenu("Main Menu").caption_center_y = 250
+
         self.getMenu("High Scores").menu_center_y = 320
         self.getMenu("High Scores").caption_center_y = 250
+
         self.setCurrentMenu("Main Menu")
 
 
