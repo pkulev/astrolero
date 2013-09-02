@@ -31,8 +31,8 @@ class GuiElement(object):
         raise NotImplementedError("All GUI element must specify draw method")
 
     def __call__(self, event):
-        raise NotImplementedError("All GUI elements
-                                  must specify __call__ method")
+        raise NotImplementedError('''All GUI elements
+                                  must specify __call__ method''')
 
 
 class MenuButton(GuiElement):
