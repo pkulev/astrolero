@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 
+
 class GuiElement(object):
     def __init__(self, owner):
         self._owner = owner
@@ -21,6 +22,7 @@ class GuiElement(object):
     def font(self):
         """Current font. You can specify it's size"""
         return self._font
+
     @font.setter
     def font(self, size):
         self._font = pygame.font.Font(None, size)
@@ -29,7 +31,9 @@ class GuiElement(object):
         raise NotImplementedError("All GUI element must specify draw method")
 
     def __call__(self, event):
-        raise NotImplementedError("All GUI elements must specify __call__ method")
+        raise NotImplementedError("All GUI elements
+                                  must specify __call__ method")
+
 
 class MenuButton(GuiElement):
     def __init__(self, owner, text, action):
@@ -42,6 +46,7 @@ class MenuButton(GuiElement):
     def text(self):
         """Button caption"""
         return self._text
+
     @text.setter
     def text(self, text):
         self._text = text
@@ -50,14 +55,15 @@ class MenuButton(GuiElement):
         if event.key == K_RETURN:
             return self._action()
 
-    def draw(self, height, selector = ""):
+    def draw(self, height, selector=""):
         """Draws button centered horizontally, at the height pixels"""
-        text = self._font.render(selector + " " + self._text + " " + selector, 
+        text = self._font.render(selector + " " + self._text + " " + selector,
                                  1, (255, 255, 255, 255))
         textpos = text.get_rect()
         textpos.centerx = self.application.width / 2
         textpos.centery = height
         self.application.display.blit(text, textpos)
+
 
 class BarGauge(GuiElement):
     def __init__(self, owner):
@@ -67,7 +73,8 @@ class BarGauge(GuiElement):
         pass
 
     def draw(self):
-       pass
+        pass
+
 
 class SubMenu(GuiElement):
     def __init__(self, owner, caption):
@@ -89,6 +96,7 @@ class SubMenu(GuiElement):
     def menu_center_y(self):
         """Starting menu height. Defaults to 100 px."""
         return self._menu_center_y
+
     @menu_center_y.setter
     def menu_center_y(self, val):
         self._menu_center_y = val
@@ -97,6 +105,7 @@ class SubMenu(GuiElement):
     def item_height(self):
         """Menu item height in pixels. Default is 60"""
         return self._menu_item_height
+
     @item_height.setter
     def item_height(self):
         self._menu_item_height = val
@@ -105,6 +114,7 @@ class SubMenu(GuiElement):
     def caption_center_y(self):
         """Y position of menu caption. Default is 20"""
         return self._caption_center_y
+
     @caption_center_y.setter
     def caption_center_y(self, val):
         self._caption_center_y = val
@@ -118,6 +128,7 @@ class SubMenu(GuiElement):
     def selector(self):
         """Cursor string. Default is '-=-'"""
         return self._selector
+
     @selector.setter
     def selector(self, value):
         self._selector = value
