@@ -1,7 +1,8 @@
+import pygame
+
 from .core.state import State
 from .core.gui import *
 from collections import OrderedDict
-import pygame
 
 
 class MainMenu(State):
