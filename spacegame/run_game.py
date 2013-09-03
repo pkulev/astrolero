@@ -38,7 +38,8 @@ class SGame(InGame):
             K_w: lambda: self.movePlayerShip(0, -dy),
             K_a: lambda: self.movePlayerShip(-dx, 0),
             K_s: lambda: self.movePlayerShip(0,  dy),
-            K_d: lambda: self.movePlayerShip(dx,  0)
+            K_d: lambda: self.movePlayerShip(dx,  0),
+            K_z: lambda: self.openFire()
         }
 
         for k in key_action_map:
@@ -68,6 +69,8 @@ class SGame(InGame):
         self._playerShip.centerx += dx
         self._playerShip.centery += dy
 
+    def openFire(self):
+        self._playerShip.openFire()
 
 class SMainMenu(MainMenu):
     def __init__(self, owner):
