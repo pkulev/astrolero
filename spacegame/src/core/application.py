@@ -48,6 +48,12 @@ class Application(object):
         else:
             raise KeyError("There is no state with name {0}".format(name))
 
+    def setState(self, name):
+        if name in self.states.keys():
+            self._state = self.states[name]
+        else:
+            raise KeyError("There is no state with name {0}".format(name))
+
     def addState(self, stateClass, name):
         self.states[name] = stateClass(self)
         

@@ -17,17 +17,35 @@ class SGame(InGame):
         playerShip.image = 'res/Ship1.png'
         playerShip.x = self.owner.display.get_width() / 2 - playerShip.width / 2
         playerShip.y = self.owner.display.get_height() - playerShip.height
-        playerShip.constraints.x = self.owner.display.get_width()
-        playerShip.constraints.y = self.owner.display.get_height()
+        playerShip.constraints.width = self.owner.display.get_width()
+        playerShip.constraints.height = self.owner.display.get_height()
+        self._playerShip = playerShip
 
         self.addGameObject(playerShip)
-        
+
+    def updateState(self):
+        dx = 5
+        dy = 5
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[K_LSHIFT]:
+            dx = 2
+            dy = 2
+
+        key_action_map = {K_w: lambda: self.movePlayerShip(0, -dy),
+                          K_a: lambda: self.movePlayerShip(-dx, 0),
+                          K_s: lambda: self.movePlayerShip(0, dy),
+                          K_d: lambda: self.movePlayerShip(dx, 0)
+                      }
+
+        for k in key_action_map:
+            if pressed_keys[k]:
+                key_action_map[k]()
+
+        for i in self._gameObjects:
+            i.updateState()
+
     def handleKeydown(self, key):
-        {K_ESCAPE: self.owner.exitGame,
-         K_w: lambda: self.movePlayerShip(5, 5),
-         K_a: lambda: self.movePlayerShip(5, -5),
-         K_s: lambda: self.movePlayerShip(-5, 5),
-         K_d: lambda: self.movePlayerShip(5, -5)
+        {K_ESCAPE: lambda: self.owner.setState("mainMenu")
         }.get(key, lambda: None)()
 
     def handleKeyup(self, key):
@@ -41,7 +59,8 @@ class SGame(InGame):
         else: pass
           
     def movePlayerShip(self, dx, dy):
-        print("moved")
+        self._playerShip.centerx += dx
+        self._playerShip.centery += dy
 
 class SMainMenu(MainMenu):
     def __init__(self, owner):
@@ -50,12 +69,16 @@ class SMainMenu(MainMenu):
         self.background = 'res/mainmenu/logo.png'
         self.music = 'res/runaway.ogg'
         self.play_music()
+        self.addMenu("High Scores",
+                     [("foo", lambda: print("foo"))])
         self.addMenu("Main Menu",
-                     [("Start Game", lambda: print("Starting game!")),
-                      ("Highscores", lambda: print("Showing HighScores!")),
+                     [("Start Game", lambda: self.owner.setState("game")),
+                      ("Highscores", lambda: self.setCurrentMenu("High Scores")),
                       ("Quit", self.owner.exitGame)])
         self.getMenu("Main Menu").menu_center_y = 320
         self.getMenu("Main Menu").caption_center_y = 250
+        self.getMenu("High Scores").menu_center_y = 320
+        self.getMenu("High Scores").caption_center_y = 250
         self.setCurrentMenu("Main Menu")
 
 
