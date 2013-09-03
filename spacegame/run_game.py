@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
+from pygame.locals import *
+
 from src.main_menu import MainMenu
 from src.in_game import InGame
 from src.core.application import Application
 from src.game_entities import *
-from pygame.locals import *
+
 
 
 class SGame(InGame):
