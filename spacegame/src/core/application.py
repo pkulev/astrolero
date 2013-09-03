@@ -2,15 +2,16 @@ import pygame
 import sys
 from . import state
 
+
 class Application(object):
     def __init__(self, caption):
 
         self._state = None
         self.states = {}
-        
+
         self.FPS = 60
         self.fpsClock = pygame.time.Clock()
-        
+
         self.width = 800
         self.height = 600
         self.depth = 32
@@ -19,12 +20,11 @@ class Application(object):
         self.fullscreen = 0
 
         self.display = self.createWindow()
-        pygame.key.set_repeat(50,50)
-
+        pygame.key.set_repeat(50, 50)
 
     def createWindow(self):
         display = pygame.display.set_mode((self.width, self.height),
-                                          self.fullscreen, 
+                                          self.fullscreen,
                                           self.depth)
         pygame.display.set_caption(self.caption)
         return display
@@ -36,7 +36,7 @@ class Application(object):
     @property
     def state(self):
         """Current application state.
-           Raises KeyError on attempt to set state, which 
+           Raises KeyError on attempt to set state, which
            has not been added via addState method.
         """
         return self._state
@@ -56,12 +56,12 @@ class Application(object):
 
     def addState(self, stateClass, name):
         self.states[name] = stateClass(self)
-        
+
     def start(self):
         while True:
             self.state.handleEvents()
             self.state.updateState()
             self.state.drawScreen()
-            
+
             pygame.display.update()
             self.fpsClock.tick(self.FPS)

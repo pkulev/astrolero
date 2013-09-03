@@ -3,6 +3,7 @@ from .core.gui import *
 from collections import OrderedDict
 import pygame
 
+
 class MainMenu(State):
     def __init__(self, owner):
         super(MainMenu, self).__init__(owner)
@@ -32,7 +33,8 @@ class MainMenu(State):
                                         self._menus))[0]
 
     def handleEvents(self):
-        if pygame.event.get([pygame.QUIT]): self.owner.exitGame()
+        if pygame.event.get([pygame.QUIT]):
+            self.owner.exitGame()
         for event in pygame.event.get([pygame.KEYDOWN]):
             if event.key == K_ESCAPE:
                 self.setCurrentMenu(self._menus[0].caption)
