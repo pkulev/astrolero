@@ -6,7 +6,7 @@ from src.main_menu import MainMenu
 from src.in_game import InGame
 from src.core.application import Application
 from src.game_entities import *
-
+from src.weapon import Weapon
 
 
 class SGame(InGame):
@@ -22,6 +22,8 @@ class SGame(InGame):
         playerShip.y = self.owner.display.get_height() - playerShip.height
         playerShip.constraints.width = self.owner.display.get_width()
         playerShip.constraints.height = self.owner.display.get_height()
+
+        playerShip.currentWeapon = Weapon("basicCannon")
         self._playerShip = playerShip
 
         self.addGameObject(playerShip)
@@ -70,7 +72,7 @@ class SGame(InGame):
         self._playerShip.centery += dy
 
     def openFire(self):
-        self._playerShip.openFire()
+        self._playerShip.currentWeapon.fire()
 
 class SMainMenu(MainMenu):
     def __init__(self, owner):

@@ -6,7 +6,14 @@ from .core.entity import *
 class Ship(Entity):
     def __init__(self):
         super(Ship, self).__init__(None)
+        self._currentWeapon = None
 
+        @property
+        def currentWeapon(self):
+            return self._currentWeapon
+        @currentWeapon.setter
+        def currentWeapon(self, weapon):
+            self._currentWeapon = weapon
 
 class PlayerShip(Ship):
     def __init__(self, startX, startY):
