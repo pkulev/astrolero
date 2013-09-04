@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-from .gui import *
 
 
 class State(object):
