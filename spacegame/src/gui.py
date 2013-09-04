@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from gui_abstract import GuiElement
+from .core.gui_abstract import GuiElement
 
 class MenuButton(GuiElement):
     def __init__(self, owner, text, action):
