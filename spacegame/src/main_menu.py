@@ -1,7 +1,8 @@
-from .core.state import State
-from .core.gui import *
-from collections import OrderedDict
 import pygame
+
+from .core.state import State
+from .gui import *
+from collections import OrderedDict
 
 
 class MainMenu(State):
@@ -16,6 +17,7 @@ class MainMenu(State):
         if caption in list(map(lambda m: m.caption,
                                self._menus)):
             raise KeyError("Menu '{0}' already exists".format(caption))
+#        print(gui, SubMenu)
         new_menu = SubMenu(self, caption)
         for entry, action in item_action_dict.items():
             new_menu.addMenuItem(entry, action)
