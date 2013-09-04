@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
+import random
+
 from pygame.locals import *
 
 from src.main_menu import MainMenu
@@ -7,7 +9,7 @@ from src.in_game import InGame
 from src.core.application import Application
 from src.game_entities import *
 from src.weapon import Weapon
-
+from src.asteroid import Asteroid
 
 class SGame(InGame):
     def __init__(self, owner):
@@ -27,6 +29,14 @@ class SGame(InGame):
         self._playerShip = playerShip
 
         self.addGameObject(playerShip)
+        
+        aster = [Asteroid() for i in range(4)]
+        for a in aster:
+            a.image = 'res/aster.png'
+            a.x = random.randrange(0, 800)
+            a.y = random.randrange(0, 300)
+            self.addGameObject(a)
+            
 
     def updateState(self):
         dx = 5
