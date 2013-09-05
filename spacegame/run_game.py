@@ -30,7 +30,7 @@ class SGame(InGame):
 
         self.addGameObject(playerShip)
         #test asteroidoids
-        asteroid = [Asteroidoid() for i in range(4)]
+        asteroid = [Asteroid() for i in range(4)]
         for a in asteroid:
             a.image = 'res/asteroid.png'
             a.constraints.width = self.owner.display.get_width()
