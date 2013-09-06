@@ -32,17 +32,6 @@ class MenuButton(GuiElement):
         self.application.display.blit(text, textpos)
 
 
-class BarGauge(GuiElement):
-    def __init__(self, owner):
-        super(BarGauge, self).__init__(owner)
-
-    def __call__(self, event):
-        pass
-
-    def draw(self):
-        pass
-
-
 class SubMenu(GuiElement):
     def __init__(self, owner, caption):
         super(SubMenu, self).__init__(owner)
