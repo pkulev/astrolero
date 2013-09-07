@@ -32,7 +32,9 @@ class SGame(InGame):
         #test asteroidoids
         asteroid = [Asteroid() for i in range(4)]
         for a in asteroid:
-            a.image = 'res/asteroid.png'
+            a.image = 'res/asteroid{}.png'.format(random.randint(1,3))
+            a._image = pygame.transform.scale(a.image, (a.width // 4,
+                                                        a.height // 4))
             a.constraints.width = self.owner.display.get_width()
             a.constraints.height = self.owner.display.get_height()
             a.x = random.randrange(0, 800)
