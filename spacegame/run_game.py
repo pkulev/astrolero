@@ -30,15 +30,16 @@ class SGame(InGame):
 
         self.addGameObject(playerShip)
         #test asteroidoids
-        asteroid = [Asteroid() for i in range(4)]
+        asteroid = [Asteroid(owner) for i in range(4)]
         for a in asteroid:
-            a.image = 'res/asteroid{}.png'.format(random.randint(1,3))
+            a.image = 'res/asteroid{}.png'.format(random.randrange(1,3))
             a._image = pygame.transform.scale(a.image, (a.width // 4,
                                                         a.height // 4))
-            a.constraints.width = self.owner.display.get_width()
-            a.constraints.height = self.owner.display.get_height()
-            a.x = random.randrange(0, 800)
-            a.y = random.randrange(0, 300)
+            a.constraints.width = None #self.owner.display.get_width()
+            a.constraints.height = None #self.owner.display.get_height()
+            #a.x = random.randrange(0, 800)
+            #a.y = random.randrange(0, 300)
+            a.spawn()
             self.addGameObject(a)
             
 
