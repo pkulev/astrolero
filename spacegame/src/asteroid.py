@@ -1,7 +1,5 @@
 import random
-
 import pygame
-
 from .core.entity import Entity
 
 
