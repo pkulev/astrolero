@@ -8,8 +8,7 @@ from src.main_menu import MainMenu
 from src.in_game import InGame
 from src.core.application import Application
 from src.game_entities import *
-from src.weapon import Weapon
-from src.asteroid import Asteroid
+
 
 class SGame(InGame):
     def __init__(self, owner):
@@ -35,8 +34,8 @@ class SGame(InGame):
             a.image = 'res/asteroid{}.png'.format(random.randrange(1,3))
             #WOW. Looks dangerous
             #TODO: convinient scaling for random asteroid sizing
-            a._image = pygame.transform.scale(a.image, (a.width // 4,
-                                                        a.height // 4))
+            a._image = pygame.transform.scale(a.image, (a.width // random.randrange(4,6),
+                                                        a.height // random.randrange(4,6)))
             a.spawn()
             self.addGameObject(a)
             
