@@ -1,5 +1,7 @@
-from .core.state import State
 import pygame
+
+from .core.state import State
+
 
 
 class InGame(State):
