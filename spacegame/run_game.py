@@ -13,7 +13,10 @@ from src.game_entities import *
 class SGame(InGame):
     def __init__(self, owner):
         super(SGame, self).__init__(owner)
+        self.reset()
 
+    def reset(self):
+        self._gameObjects = []
         self.background = 'res/space.jpg'
 
         #playership
@@ -94,7 +97,7 @@ class SMainMenu(MainMenu):
         self.music = 'res/runaway.ogg'
         self.play_music()
         self.addMenu("Main Menu", [
-            ("Start Game", lambda: self.owner.setState("game")),
+            ("Start Game", self.swithToGameState),
             ("Highscores", lambda: self.setCurrentMenu("High Scores")),
             ("Quit", self.owner.exitGame)
         ])
@@ -109,6 +112,10 @@ class SMainMenu(MainMenu):
         self.getMenu("High Scores").caption_center_y = 250
 
         self.setCurrentMenu("Main Menu")
+        
+    def swithToGameState(self):
+        self.owner.setState("game")
+        self.owner.state.reset()
 
 
 if __name__ == "__main__":
