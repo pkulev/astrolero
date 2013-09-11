@@ -120,6 +120,7 @@ class SMainMenu(MainMenu):
 
 
 if __name__ == "__main__":
+    random.seed("menacing llama wool spike")
     App = Application("PYГAME: CTAДNЯ")
     App.addState(SGame, "game")
     App.addState(SMainMenu, "mainMenu")
