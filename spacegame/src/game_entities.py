@@ -5,8 +5,8 @@ from .core.entity import *
 
 
 class Ship(Entity):
-    def __init__(self):
-        super(Ship, self).__init__(None)
+    def __init__(self, owner):
+        super(Ship, self).__init__(owner)
         self._currentWeapon = None
 
         @property
@@ -17,8 +17,8 @@ class Ship(Entity):
             self._currentWeapon = weapon
 
 class PlayerShip(Ship):
-    def __init__(self, startX, startY):
-        super(PlayerShip, self).__init__()
+    def __init__(self, startX, startY, owner):
+        super(PlayerShip, self).__init__(owner)
         self._x = startX
         self._y = startY
         self.baseType = "PlayerShip"
@@ -31,14 +31,14 @@ class PlayerShip(Ship):
 
 
 class EnemyShip(Ship):
-    def __init__(self, startX, startY):
-        super(EnemyShip, self).__init__()
+    def __init__(self, startX, startY, owner):
+        super(EnemyShip, self).__init__(owner)
         self.baseType = "EnemyShip"
 
 
 class Weapon(Entity):
-    def __init__(self, wtype):
-        super(Weapon, self).__init__()
+    def __init__(self, wtype, owner):
+        super(Weapon, self).__init__(owner)
         self.wtype = wtype
         
     def fire(self):
@@ -47,7 +47,7 @@ class Weapon(Entity):
 
 class Asteroid(Entity):
     def __init__(self, owner):
-        super(Asteroid, self).__init__(self)
+        super(Asteroid, self).__init__(owner)
         self._owner = owner
 #TODO: speed increasing based on level (difficulty?)
         self.velocity = random.randint(1, 2)
