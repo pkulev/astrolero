@@ -20,19 +20,19 @@ class SGame(InGame):
         self.background = 'res/space.jpg'
 
         #playership
-        playerShip = PlayerShip(0, 0)
+        playerShip = PlayerShip(self, 0, 0)
         playerShip.image = 'res/Ship1.png'
         playerShip.x = self.owner.display.get_width() / 2 - playerShip.width / 2
         playerShip.y = self.owner.display.get_height() - playerShip.height
         playerShip.constraints.width = self.owner.display.get_width()
         playerShip.constraints.height = self.owner.display.get_height()
 
-        playerShip.currentWeapon = Weapon("basicCannon")
+        playerShip.currentWeapon = Weapon(playerShip, "basicCannon")
         self._playerShip = playerShip
 
         self.addGameObject(playerShip)
         #test asteroidoids
-        asteroid = [Asteroid(owner) for i in range(4)]
+        asteroid = [Asteroid(self) for i in range(4)]
         for a in asteroid:
             a.image = 'res/asteroid{}.png'.format(random.randrange(1,3))
             #WOW. Looks dangerous
