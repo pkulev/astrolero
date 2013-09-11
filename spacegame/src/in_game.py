@@ -3,7 +3,6 @@ import pygame
 from .core.state import State
 
 
-
 class InGame(State):
     def __init__(self, owner):
         super(InGame, self).__init__(owner)
