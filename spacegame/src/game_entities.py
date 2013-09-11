@@ -50,19 +50,17 @@ class Asteroid(Entity):
         super(Asteroid, self).__init__(owner)
         self._owner = owner
 #TODO: speed increasing based on level (difficulty?)
+#TODO: move velocity and acceleration in physics class
         self.velocity = random.randint(1, 2)
         self.acceleration = random.randint(1, 2)
-        self.spawnRect = pygame.Rect(0, -300, self.owner.display.get_width(),
-                                     self.owner.display.get_height())
 
     def move(self, dt):
         self.x -= self.velocity * dt
         self.y += self.velocity * dt
-        #self.velocity += self.acceleration * dt
         
-    def spawn(self):
-        self.x = random.randrange(0, self.spawnRect.width)
-        self.y = random.randrange(0, self.spawnRect.height)
+    def spawn(self, x, y):
+        self.x = x
+        self.y = y
 
     def updateState(self):
         self.move(1)
