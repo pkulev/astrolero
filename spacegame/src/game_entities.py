@@ -17,7 +17,7 @@ class Ship(Entity):
             self._currentWeapon = weapon
 
 class PlayerShip(Ship):
-    def __init__(self, startX, startY, owner):
+    def __init__(self, owner, startX, startY):
         super(PlayerShip, self).__init__(owner)
         self._x = startX
         self._y = startY
@@ -31,13 +31,13 @@ class PlayerShip(Ship):
 
 
 class EnemyShip(Ship):
-    def __init__(self, startX, startY, owner):
+    def __init__(self, owner, startX, startY):
         super(EnemyShip, self).__init__(owner)
         self.baseType = "EnemyShip"
 
 
 class Weapon(Entity):
-    def __init__(self, wtype, owner):
+    def __init__(self, owner, wtype):
         super(Weapon, self).__init__(owner)
         self.wtype = wtype
         
