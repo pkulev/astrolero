@@ -69,7 +69,7 @@ class SGame(InGame):
 
     def handleKeydown(self, key):
         {
-            K_ESCAPE: lambda: self.owner.setState("mainMenu")
+            K_ESCAPE: lambda: self.owner.setState("Pause")
         }.get(key, lambda: None)()
 
     def handleKeyup(self, key):
@@ -104,15 +104,18 @@ class SMainMenu(MainMenu):
         ])
 
         self.addMenu("Start Game", [
-            ("Single player", self.swithToGameState),
+            ("Single player", self.switchToGameState),
             ("Two players", lambda: print("two players")),
             ("Back", lambda: self.setCurrentMenu("Main Menu"))
         ])
         
         self.addMenu("High Scores", [
-            ("foo", lambda: print("foo"))
+            ("foo", lambda: print("foo")),
+            ("Back", lambda: self.setCurrentMenu("Main Menu"))
         ])
 
+
+        
         self.getMenu("Main Menu").menu_center_y = 320
         self.getMenu("Main Menu").caption_center_y = 250
 
@@ -122,18 +125,38 @@ class SMainMenu(MainMenu):
         self.getMenu("High Scores").menu_center_y = 320
         self.getMenu("High Scores").caption_center_y = 250
 
-        self.setCurrentMenu("Main Menu")
+        self.getMenu("Pause").menu_center_y = 320
+        self.getMenu("Pause").caption_center_y = 250
         
-    def swithToGameState(self):
+        self.setCurrentMenu("Main Menu")
+
+        
+    def switchToGameState(self):
         self.owner.setState("game")
         self.owner.state.reset()
 
+    def switchToPause(self):
+        self.owner.setState("pauseMenu")
 
+        
+class SPause(MainMenu):
+    def __init__(self, owner):
+        super(SPause, self).__init__(owner)
+
+        self.background = "res/mainmenu/logo.png"
+        self.music = "res/runaway.ogg"
+        self.play_music()
+
+        self.addMenu("Pause", [
+            ("Continue", self.switchToGameState),
+            ("Main Menu", self.setCurrentMenu("Main Menu"))
+            ])        
+        
 if __name__ == "__main__":
     random.seed("menacing llama wool spike")
     App = Application("PYГAME: CTAДNЯ")
     App.addState(SGame, "game")
     App.addState(SMainMenu, "mainMenu")
-    #    App.addState(SPause, "pauseMenu")
+    App.addState(SPause, "pauseMenu")
     App.state = "mainMenu"
     App.start()
