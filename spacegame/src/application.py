@@ -1,6 +1,8 @@
-import pygame
 import sys
-from . import state
+
+import pygame
+
+from .core import state
 
 
 class Application(object):

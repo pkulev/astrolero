@@ -6,7 +6,7 @@ from pygame.locals import *
 
 from src.main_menu import MainMenu
 from src.in_game import InGame
-from src.core.application import Application
+from src.application import Application
 from src.game_entities import *
 
 
