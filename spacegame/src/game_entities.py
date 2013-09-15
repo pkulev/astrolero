@@ -54,7 +54,7 @@ class Asteroid(Entity):
         self.velocity = random.randint(1, 2)
         self.acceleration = random.randint(1, 2)
 
-    def move(self, dt):
+    def move(self, dt=1):
         self.x -= self.velocity * dt
         self.y += self.velocity * dt
         
@@ -63,7 +63,7 @@ class Asteroid(Entity):
         self.y = y
 
     def updateState(self):
-        self.move(1)
+        self.move()
 
     def handleEvents(self):
         pass
