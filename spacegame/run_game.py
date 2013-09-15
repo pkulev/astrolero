@@ -98,17 +98,27 @@ class SMainMenu(MainMenu):
         self.music = 'res/runaway.ogg'
         self.play_music()
         self.addMenu("Main Menu", [
-            ("Start Game", self.swithToGameState),
+            ("Start Game", lambda: self.setCurrentMenu("Start Game")),
             ("Highscores", lambda: self.setCurrentMenu("High Scores")),
             ("Quit", self.owner.exitGame)
         ])
 
-        self.addMenu("High Scores",
-                     [("foo", lambda: print("foo"))])
+        self.addMenu("Start Game", [
+            ("Single player", self.swithToGameState),
+            ("Two players", lambda: print("two players")),
+            ("Back", lambda: self.setCurrentMenu("Main Menu"))
+        ])
+        
+        self.addMenu("High Scores", [
+            ("foo", lambda: print("foo"))
+        ])
 
         self.getMenu("Main Menu").menu_center_y = 320
         self.getMenu("Main Menu").caption_center_y = 250
 
+        self.getMenu("Start Game").menu_center_y = 320
+        self.getMenu("Start Game").caption_center_y = 250
+        
         self.getMenu("High Scores").menu_center_y = 320
         self.getMenu("High Scores").caption_center_y = 250
 
@@ -124,5 +134,6 @@ if __name__ == "__main__":
     App = Application("PYГAME: CTAДNЯ")
     App.addState(SGame, "game")
     App.addState(SMainMenu, "mainMenu")
+    #    App.addState(SPause, "pauseMenu")
     App.state = "mainMenu"
     App.start()
