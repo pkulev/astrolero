@@ -125,9 +125,6 @@ class SMainMenu(MainMenu):
         self.getMenu("High Scores").menu_center_y = 320
         self.getMenu("High Scores").caption_center_y = 250
 
-        self.getMenu("Pause").menu_center_y = 320
-        self.getMenu("Pause").caption_center_y = 250
-        
         self.setCurrentMenu("Main Menu")
 
         
@@ -148,8 +145,8 @@ class SPause(MainMenu):
         self.play_music()
 
         self.addMenu("Pause", [
-            ("Continue", self.switchToGameState),
-            ("Main Menu", self.setCurrentMenu("Main Menu"))
+            ("Continue", lambda: self.owner.setState("game")),
+            ("Main Menu", lambda: self.setCurrentMenu("Main Menu"))
             ])        
         
 if __name__ == "__main__":
