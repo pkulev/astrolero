@@ -29,6 +29,7 @@ class Movable(Entity):
             current_time = time.time()
             yield
         self._move = None
+        yield
 
     def moveUntilStop(self, dx, dy, lapse, dvx=0, dvy=0):
         '''Move in straight line until speed becomes zero
