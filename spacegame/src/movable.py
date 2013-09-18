@@ -47,6 +47,26 @@ class Movable(Entity):
             current_time = time.time()
             yield
         self._move = None
+
+    def rotateStraight(self, x, y, w, lapse, dw):
+        '''Rotate about (x, y) with speed w and acceleration dw
+           for lapse seconds.
+        '''
+        self._rotate = self._rotateStraight(x, y, w, lapse, dw)
+
+    def _rotateStraight(self, x, y, w, lapse, dw):
+        current_time = time.time()
+        finish_time = current_time + lapse
+        while current_time < finish_time:
+            rx = abs(x - self._x)
+            ry = abs(y - self._y)
+            dx = rx * w
+            dy = ry * w
+            self._x += dx
+            self._y += dy
+            current_time = time.time()
+            yield
+        self._rotate = None
         
     def updateState(self):
         if self._move:
