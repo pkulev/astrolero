@@ -36,7 +36,7 @@ class Movable(Entity):
            or time reachs it's limit, whatever comes first
         '''
         self._move = self._moveUntilStop(dx, dy, lapse, dvx, dvy)
-        
+
     def _moveUntilStop(self, dx, dy, lapse, dvx, dvy):
         current_time = time.time()
         finish_time = current_time + lapse
@@ -73,11 +73,9 @@ class Movable(Entity):
             yield
         self._rotate = None
         yield
-        
+
     def updateState(self):
         if self._move:
             next(self._move)
         if self._rotate:
             next(self._rotate)
-        
-        
