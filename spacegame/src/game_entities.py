@@ -46,7 +46,7 @@ class Weapon(Entity):
         print("bang!")
 
 
-class Asteroid(Entity):
+class Asteroid(Movable):
     def __init__(self, owner):
         super(Asteroid, self).__init__(owner)
 
