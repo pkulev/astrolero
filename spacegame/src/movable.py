@@ -34,7 +34,7 @@ class Movable(Entity):
         '''Move in straight line until speed becomes zero
            or time reachs it's limit, whatever comes first
         '''
-        self._move = _moveUntilStop(dx, dy, lapse, dvx, dvy)
+        self._move = self._moveUntilStop(dx, dy, lapse, dvx, dvy)
         
     def _moveUntilStop(self, dx, dy, lapse, dvx, dvy):
         current_time = time.time()
