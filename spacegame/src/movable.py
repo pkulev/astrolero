@@ -3,6 +3,14 @@ from math import sqrt
 import time
 
 
+def coroutine(function):
+    def _coroutine(*args, **kwargs):
+        g = function(*args, **kwargs)
+        return lambda: next(g)
+    _coroutine.__name__ = function.__name__
+    _coroutine.__doc__ = function.__doc__
+    return _coroutine
+
 class Movable(Entity):
     def __init__(self, owner):
         super(Movable, self).__init__(owner)
@@ -18,6 +26,7 @@ class Movable(Entity):
         '''
         self._move = self._moveStraight(dx, dy, time, dvx, dvy)
 
+    @coroutine
     def _moveStraight(self, dx, dy, lapse, dvx, dvy):
         current_time = time.time()
         finish_time = current_time + lapse
@@ -37,6 +46,7 @@ class Movable(Entity):
         '''
         self._move = self._moveUntilStop(dx, dy, lapse, dvx, dvy)
 
+    @coroutine
     def _moveUntilStop(self, dx, dy, lapse, dvx, dvy):
         current_time = time.time()
         finish_time = current_time + lapse
@@ -56,6 +66,7 @@ class Movable(Entity):
         '''
         self._rotate = self._rotateStraight(x, y, w, lapse, dw)
 
+    @coroutine
     def _rotateStraight(self, x, y, w, lapse, dw):
         current_time = time.time()
         finish_time = current_time + lapse
@@ -76,6 +87,6 @@ class Movable(Entity):
 
     def updateState(self):
         if self._move:
-            next(self._move)
+            self._move()
         if self._rotate:
-            next(self._rotate)
+            self._rotate()
