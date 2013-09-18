@@ -2,6 +2,7 @@ import sys
 import random
 
 from .core.entity import *
+from .movable import Movable
 
 
 class Ship(Entity):
@@ -48,22 +49,9 @@ class Weapon(Entity):
 class Asteroid(Entity):
     def __init__(self, owner):
         super(Asteroid, self).__init__(owner)
-        self._owner = owner
-#TODO: speed increasing based on level (difficulty?)
-#TODO: move velocity and acceleration in physics class
-        self.velocity = random.randint(1, 2)
-        self.acceleration = random.randint(1, 2)
-
-    def move(self, dt=1):
-        self.x -= self.velocity * dt
-        self.y += self.velocity * dt
-        
-    def spawn(self, x, y):
-        self.x = x
-        self.y = y
 
     def updateState(self):
-        self.move()
+        super(Asteroid, self).updateState()
 
     def handleEvents(self):
         pass
