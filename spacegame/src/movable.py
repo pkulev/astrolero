@@ -49,7 +49,7 @@ class Movable(Entity):
         self._move = None
         yield
 
-    def rotateStraight(self, x, y, w, lapse, dw):
+    def rotateStraight(self, x, y, w, lapse, dw=0):
         '''Rotate about (x, y) with speed w and acceleration dw
            for lapse seconds.
         '''
