@@ -59,15 +59,19 @@ class Movable(Entity):
         current_time = time.time()
         finish_time = current_time + lapse
         while current_time < finish_time:
-            rx = abs(x - self._x)
-            ry = abs(y - self._y)
-            dx = rx * w
-            dy = ry * w
+            rx = x - self._x
+            ry = y - self._y
+            r = sqrt(rx ** 2 + ry ** 2)
+            v = r * w
+            dx = ry / r * v
+            dy = rx / r * v
             self._x += dx
-            self._y += dy
+            self._y -= dy
+            w += dw
             current_time = time.time()
             yield
         self._rotate = None
+        yield
         
     def updateState(self):
         if self._move:
