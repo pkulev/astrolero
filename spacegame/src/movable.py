@@ -85,6 +85,28 @@ class Movable(Entity):
         self._rotate = None
         yield
 
+    def rotateUntilStop(self, x, y, w, lapse, dw):
+        self._rotate = self._rotateUntilStop(x, y, w, lapse, dw)
+
+    @coroutine
+    def _rotateUntilStop(self, x, y, w, lapse, dw):
+        current_time = time.time()
+        finish_time = current_time + lapse
+        while current_time < finish_time and (w * dw) < 0:
+            rx = x - self._x
+            ry = y - self._y
+            r = sqrt(rx ** 2 + ry ** 2)
+            v = r * w
+            dx = ry / r * v
+            dy = rx / r * v
+            self._x += dx
+            self._y -= dy
+            w += dw
+            current_time = time.time()
+            yield
+        self._rotate = None
+        yield
+
     def updateState(self):
         if self._move:
             self._move()

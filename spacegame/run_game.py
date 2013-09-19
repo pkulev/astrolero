@@ -38,10 +38,10 @@ class SGame(InGame):
             #TODO: convinient scaling for random asteroid sizing
             a._image = pygame.transform.scale(a.image, (a.width // random.randrange(8,12),
                                                         a.height // random.randrange(8,12)))
-            a.leap(random.randrange(self.owner.width - 200) + 100,
-                   random.randrange(self.owner.height - 200) + 100)
-            a.rotateStraight(self.owner.width / 2, self.owner.height / 2,
-                             0.005 + random.randrange(20) / 1000.0, 10)
+            a.leap(random.randrange(self.owner.width - 300) + 150,
+                   random.randrange(self.owner.height - 300) + 150)
+            a.rotateUntilStop(self.owner.width / 2, self.owner.height / 2,
+                              0.05 + random.randrange(20) / 1000.0, 100, -0.0001)
             self.addGameObject(a)
             
 
