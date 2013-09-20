@@ -1,4 +1,4 @@
-import pygame
+from . import pygame
 
 
 class Gizmo(object):

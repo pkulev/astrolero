@@ -33,7 +33,7 @@ class SGame(InGame):
         self.addGameObject(playerShip)
         #test asteroidoids
         for a in [Asteroid(self) for i in range(15)]:
-            a.image = 'res/gfx/asteroids/asteroid{}.png'.format(random.randrange(0,3))
+            a.image = 'res/gfx/asteroids/asteroid{}.png'.format(random.randint(0,3))
             #WOW. Looks dangerous
             #TODO: convinient scaling for random asteroid sizing
             a._image = pygame.transform.scale(a.image, (a.width // random.randrange(8,12),
