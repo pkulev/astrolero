@@ -17,11 +17,11 @@ class SGame(InGame):
 
     def reset(self):
         self._gameObjects = []
-        self.background = 'res/space.jpg'
+        self.background = 'res/gfx/space.jpg'
 
         #playership
         playerShip = PlayerShip(self, 0, 0)
-        playerShip.image = 'res/Ship1.png'
+        playerShip.image = 'res/gfx/Ship1.png'
         playerShip.x = self.owner.display.get_width() / 2 - playerShip.width / 2
         playerShip.y = self.owner.display.get_height() - playerShip.height
         playerShip.constraints.width = self.owner.display.get_width()
@@ -33,7 +33,7 @@ class SGame(InGame):
         self.addGameObject(playerShip)
         #test asteroidoids
         for a in [Asteroid(self) for i in range(15)]:
-            a.image = 'res/asteroid{}.png'.format(random.randrange(1,3))
+            a.image = 'res/gfx/asteroids/asteroid{}.png'.format(random.randrange(0,3))
             #WOW. Looks dangerous
             #TODO: convinient scaling for random asteroid sizing
             a._image = pygame.transform.scale(a.image, (a.width // random.randrange(8,12),
@@ -95,8 +95,8 @@ class SMainMenu(MainMenu):
     def __init__(self, owner):
         super(SMainMenu, self).__init__(owner)
 
-        self.background = 'res/mainmenu/logo.png'
-        self.music = 'res/runaway.ogg'
+        self.background = 'res/gfx/menu/logo.png'
+        self.music = 'res/snd/runaway.ogg'
         self.play_music()
         self.addMenu("Main Menu", [
             ("Start Game", lambda: self.setCurrentMenu("Start Game")),
@@ -141,8 +141,8 @@ class SPause(MainMenu):
     def __init__(self, owner):
         super(SPause, self).__init__(owner)
 
-        self.background = "res/mainmenu/logo.png"
-        self.music = "res/runaway.ogg"
+        self.background = "res/gfx/menu/logo.png"
+        self.music = "res/snd/runaway.ogg"
         self.play_music()
 
         self.addMenu("Pause", [
