@@ -8,6 +8,7 @@ from src.main_menu import MainMenu
 from src.in_game import InGame
 from src.application import Application
 from src.game_entities import *
+from src.levels import AsteroidBeltLevel
 
 
 class SGame(InGame):
