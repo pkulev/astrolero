@@ -38,13 +38,36 @@ class EnemyShip(Ship):
 
 
 class Weapon(Entity):
-    def __init__(self, owner, wtype):
+    def __init__(self, owner):
         super(Weapon, self).__init__(owner)
-        self.wtype = wtype
-        
+        self.shell = None
+
     def fire(self):
         print("bang!")
 
+class WeaponShell(Movable):
+    def __init__(self, owner):
+        super(WeaponShell, self).__init__(owner)
+    
+    def updateState(self):
+        super(WeaponShell, self).updateState()
+
+    def handleEvents(self):
+        pass
+
+class BasicLaser(WeaponShell):
+    def __init__(self, owner):
+        super(BasicLaser, self).__init__(owner)
+        self.leap(0, 0)
+        self.rotateUntilStop(0, 0, 0, 0, 0)
+
+class WBasicLaser(Weapon):
+    def __init__(self, owner):
+        super(WBasicLaser, self).__init__(owner)
+        self.shell = BasicLaser
+
+        def fire(self):
+            print(self.shell())
 
 class Asteroid(Movable):
     def __init__(self, owner):

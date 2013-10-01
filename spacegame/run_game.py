@@ -28,7 +28,7 @@ class SGame(InGame):
         playerShip.constraints.width = self.owner.display.get_width()
         playerShip.constraints.height = self.owner.display.get_height()
 
-        playerShip.currentWeapon = Weapon(playerShip, "basicCannon")
+        playerShip.currentWeapon = WBasicLaser(playerShip)
         self._playerShip = playerShip
 
         self.addGameObject(playerShip)
