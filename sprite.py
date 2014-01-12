@@ -21,7 +21,7 @@ if __name__ == '__main__':
     size = width, height = 240, 240
     screen = pygame.display.set_mode(size)
     komati = Spritesheet("komati.png")
-    komati_imgs = [komati.image_at(r) for r in [pygame.Rect(x1, 0, x2-x1, 215) for (x1, x2) in [ (0, 105),
+    komati_imgs = [komati.image_at(r) for r in [pygame.Rect(x1, 0, x2-x1, 215) for (x1, x2) in [(0, 105),
                                                                                                 (106, 191),
                                                                                                 (192, 284),
                                                                                                 (285, 395),
