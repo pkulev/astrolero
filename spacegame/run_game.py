@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-#-*- coding: utf-8 -*-
+#!/usr/bin/env python3
 import random
 
 from pygame.locals import *
@@ -44,7 +43,6 @@ class SGame(InGame):
             a.rotateUntilStop(self.owner.width / 2, self.owner.height / 2,
                               0.05 + random.randrange(20) / 1000.0, 100, -0.0001)
             self.addGameObject(a)
-            
 
     def updateState(self):
         dx = 5
@@ -71,7 +69,7 @@ class SGame(InGame):
 
     def handleKeydown(self, key):
         {
-            K_ESCAPE: lambda: self.owner.setState("Pause")
+            K_ESCAPE: lambda: self.owner.setState("pauseMenu")
         }.get(key, lambda: None)()
 
     def handleKeyup(self, key):
@@ -110,26 +108,26 @@ class SMainMenu(MainMenu):
             ("Two players", lambda: print("two players")),
             ("Back", lambda: self.setCurrentMenu("Main Menu"))
         ])
-        
+
         self.addMenu("High Scores", [
             ("foo", lambda: print("foo")),
             ("Back", lambda: self.setCurrentMenu("Main Menu"))
         ])
 
 
-        
+
         self.getMenu("Main Menu").menu_center_y = 320
         self.getMenu("Main Menu").caption_center_y = 250
 
         self.getMenu("Start Game").menu_center_y = 320
         self.getMenu("Start Game").caption_center_y = 250
-        
+
         self.getMenu("High Scores").menu_center_y = 320
         self.getMenu("High Scores").caption_center_y = 250
 
         self.setCurrentMenu("Main Menu")
 
-        
+
     def switchToGameState(self):
         self.owner.setState("game")
         self.owner.state.reset()
@@ -137,7 +135,7 @@ class SMainMenu(MainMenu):
     def switchToPause(self):
         self.owner.setState("pauseMenu")
 
-        
+
 class SPause(MainMenu):
     def __init__(self, owner):
         super(SPause, self).__init__(owner)
@@ -149,7 +147,16 @@ class SPause(MainMenu):
         self.addMenu("Pause", [
             ("Continue", lambda: self.owner.setState("game")),
             ("Main Menu", lambda: self.setCurrentMenu("Main Menu"))
-            ])        
+            ])
+
+#        self.getMenu("Continue").menu_center_y = 320
+#        self.getMenu("Continue").caption_center_y = 250
+
+#        self.getMenu("Main Menu").menu_center_y = 320
+#        self.getMenu("Main Menu").caption_center_y = 250
+
+        self.setCurrentMenu("Pause")
+        
         
 if __name__ == "__main__":
     random.seed("menacing llama wool spike")

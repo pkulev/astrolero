@@ -1,7 +1,9 @@
 import pygame
 
+from pygame.locals import K_ESCAPE
+
 from .core.state import State
-from .gui import *
+from .gui import SubMenu
 from collections import OrderedDict
 
 
