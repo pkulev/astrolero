@@ -1,15 +1,17 @@
-from .core.entity import Entity
-from math import sqrt
+import functools
+import math
 import time
+
+from .core.entity import Entity
 
 
 def coroutine(function):
+    @functools.wraps(function)
     def _coroutine(*args, **kwargs):
         g = function(*args, **kwargs)
         return lambda: next(g)
-    _coroutine.__name__ = function.__name__
-    _coroutine.__doc__ = function.__doc__
     return _coroutine
+
 
 class Movable(Entity):
     def __init__(self, owner):
@@ -22,8 +24,7 @@ class Movable(Entity):
         self._y = new_y
 
     def moveStraight(self, dx, dy, time, dvx=0, dvy=0):
-        '''Move in straight line for lapse seconds
-        '''
+        """Move in straight line for lapse seconds"""        
         self._move = self._moveStraight(dx, dy, time, dvx, dvy)
 
     @coroutine
@@ -41,9 +42,8 @@ class Movable(Entity):
         yield
 
     def moveUntilStop(self, dx, dy, lapse, dvx=0, dvy=0):
-        '''Move in straight line until speed becomes zero
-           or time reachs it's limit, whatever comes first
-        '''
+        """Move in straight line until speed becomes zero
+           or time reachs it's limit, whatever comes first."""
         self._move = self._moveUntilStop(dx, dy, lapse, dvx, dvy)
 
     @coroutine
@@ -61,9 +61,8 @@ class Movable(Entity):
         yield
 
     def rotateStraight(self, x, y, w, lapse, dw=0):
-        '''Rotate about (x, y) with speed w and acceleration dw
-           for lapse seconds.
-        '''
+        """Rotate about (x, y) with speed w and acceleration dw
+           for lapse seconds."""
         self._rotate = self._rotateStraight(x, y, w, lapse, dw)
 
     @coroutine
@@ -73,7 +72,7 @@ class Movable(Entity):
         while current_time < finish_time:
             rx = x - self._x
             ry = y - self._y
-            r = sqrt(rx ** 2 + ry ** 2)
+            r = math.sqrt(rx ** 2 + ry ** 2)
             v = r * w
             dx = ry / r * v
             dy = rx / r * v
@@ -95,7 +94,7 @@ class Movable(Entity):
         while current_time < finish_time and (w * dw) < 0:
             rx = x - self._x
             ry = y - self._y
-            r = sqrt(rx ** 2 + ry ** 2)
+            r = math.sqrt(rx ** 2 + ry ** 2)
             v = r * w
             dx = ry / r * v
             dy = rx / r * v
