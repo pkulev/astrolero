@@ -1,4 +1,4 @@
-from distutils.core import setup, find_packages
+from setuptools import setup, find_packages
 
 
 def read(fname):
@@ -9,13 +9,14 @@ def read(fname):
 setup(
     name="spacegame",
     author="Pavel Kulyov",
-    contributors = ["Alexey Egorov"],
+    author_email="kulyov.pavel@gmail.com",
     version="0.0.1",
     packages=find_packages(),
+    package_dir={"spacegame": "spacegame"},
     include_package_data=True,
     scripts=["spacegame/run_game.py"],
     license="GPLv2",
-    long_description=read("README.txt"),
+    long_description=read("README.md"),
 #   install_requires=["pygame >=1.9.2pre"],
 #   until that day
 )
