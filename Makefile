@@ -1,4 +1,4 @@
 clean:
-	rm -f *~ *.pyc \#* src/*.pyc src/core/*.pyc
+	rm -f *~ *.pyc \#* core/*.pyc
 
 .PHONY: clean

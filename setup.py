@@ -5,6 +5,13 @@ def read(fname):
     with open(fname) as fin:
         return fin.read()
 
+def files():
+    return [
+        "res/gfx/asteroids/*",
+        "res/gfx/menu/*",
+        "res/snd/*"
+    ]
+
 
 setup(
     name="spacegame",
@@ -12,11 +19,9 @@ setup(
     author_email="kulyov.pavel@gmail.com",
     version="0.0.1",
     packages=find_packages(),
-    package_dir={"spacegame": "spacegame"},
-    include_package_data=True,
-    scripts=["spacegame/run_game.py"],
     license="GPLv2",
     long_description=read("README.md"),
-#   install_requires=["pygame >=1.9.2pre"],
-#   until that day
+    entry_points={
+        "gui_scripts": [
+            "spacegame = spacegame.__main__:main"]},
 )

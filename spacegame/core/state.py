@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import *
+#from pygame.locals import *
 
 
 class State(object):
@@ -35,10 +35,10 @@ class State(object):
         pygame.mixer.music.play(-1)
 
     def handleEvents(self):
-        raise NotImplementedError("handleEvents method not implemented")
+        raise NotImplementedError
 
     def updateState(self):
-        raise NotImplementedError("updateState method not implemented")
+        raise NotImplementedError
 
     def drawScreen(self):
-        raise NotImplementedError("drawScreen method not implemented")
+        raise NotImplementedError
