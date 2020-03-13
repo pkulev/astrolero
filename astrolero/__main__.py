@@ -1,13 +1,12 @@
 """Entry point module."""
 
 import random
-import sys
 
 from spacegame.application import Application
 from spacegame.game import SGame, SMainMenu, SPause
 
 
-def main(args=None):
+def main():
     """Entry point."""
 
     random.seed("menacing llama wool spike")
@@ -20,4 +19,4 @@ def main(args=None):
 
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main()

@@ -2,6 +2,7 @@ import os
 import random
 
 from pygame.locals import *
+import pygame
 
 from spacegame.main_menu import MainMenu
 from spacegame.in_game import InGame

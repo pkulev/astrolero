@@ -2,8 +2,6 @@ import sys
 
 import pygame
 
-from .core import state
-
 
 class Application(object):
     def __init__(self, caption):
