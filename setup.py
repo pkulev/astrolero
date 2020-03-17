@@ -14,7 +14,7 @@ def files():
 
 
 setup(
-    name="spacegame",
+    name="astrolero",
     author="Pavel Kulyov",
     author_email="kulyov.pavel@gmail.com",
     version="0.0.1",
@@ -23,5 +23,5 @@ setup(
     long_description=read("README.md"),
     entry_points={
         "gui_scripts": [
-            "spacegame = spacegame.__main__:main"]},
+            "astrolero = astrolero.__main__:main"]},
 )

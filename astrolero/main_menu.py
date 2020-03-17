@@ -2,15 +2,15 @@ import pygame
 
 from pygame.locals import K_ESCAPE
 
-from .core.state import State
+from eaf.state import State
+
 from .gui import SubMenu
 from collections import OrderedDict
 
 
 class MainMenu(State):
-    def __init__(self, owner):
-        super(MainMenu, self).__init__(owner)
-        pygame.font.init()
+    def __init__(self, app):
+        super().__init__(app)
         self._menus = []
         self._currentMenu = None
 
@@ -36,18 +36,18 @@ class MainMenu(State):
         self._currentMenu = list(filter(lambda m: m.caption == caption,
                                         self._menus))[0]
 
-    def handleEvents(self):
+    def events(self):
         if pygame.event.get([pygame.QUIT]):
-            self.owner.exitGame()
+            self.app.stop()
         for event in pygame.event.get([pygame.KEYDOWN]):
             if event.key == K_ESCAPE:
                 self.setCurrentMenu(self._menus[0].caption)
             self._currentMenu.handleEvents(event)
 
-    def updateState(self):
+    def update(self):
         pass
 
-    def drawScreen(self):
+    def render(self):
         self.owner.display.fill(pygame.Color(0, 0, 0, 1))
         self.owner.display.blit(self.background, (0, 0))
         self._currentMenu.draw()

@@ -1,2 +1,2 @@
 include README.md
-recursive-include spacegame res/gfx/* res/gfx/menu/* res/snd/*
+recursive-include astrolero res/gfx/* res/gfx/menu/* res/snd/*

@@ -1,6 +1,6 @@
 import pygame
- 
- 
+
+
 class GuiElement(object):
     def __init__(self, owner):
         self._owner = owner

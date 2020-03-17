@@ -13,4 +13,3 @@ class AbstractLevel(object):
     def owner(self):
         """Owner of the level (state)"""
         return self._owner
-        

@@ -1,14 +1,9 @@
 import pygame
 
-from .core.state import State
+from eaf.state import State
 
 
-class InGame(State):
-    def __init__(self, owner):
-        super(InGame, self).__init__(owner)
-        self._gameObjects = []
-
-        pygame.mixer.init()
+class IngameState(State):
 
     def addGameObject(self, gameObject):
         self._gameObjects.append(gameObject)
@@ -18,8 +13,8 @@ class InGame(State):
 
     def handleEvents(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: 
-                self.owner.exitGame()
+            if event.type == pygame.QUIT:
+                self.app.stop()
             self.handleEvent(event)
 
     def updateState(self):

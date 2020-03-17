@@ -1,21 +1,18 @@
 """Entry point module."""
 
-import random
-
-from spacegame.application import Application
-from spacegame.game import SGame, SMainMenu, SPause
+from astrolero.application import PygameApplication
+from astrolero.game import SGame, SMainMenu, SPause
 
 
 def main():
     """Entry point."""
 
-    random.seed("menacing llama wool spike")
-    App = Application("PYГAME: CTAДNЯ")
-    App.addState(SGame, "game")
-    App.addState(SMainMenu, "Main Menu")
-    App.addState(SPause, "Pause Menu")
-    App.state = "Main Menu"
-    App.start()
+    app = PygameApplication()
+    app.set_caption("PYГAME: CTAДNЯ")
+    app.register(SMainMenu)
+    app.register(SGame)
+    app.register(SPause)
+    app.start()
 
 
 if __name__ == "__main__":

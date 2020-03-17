@@ -4,18 +4,23 @@ import random
 from pygame.locals import *
 import pygame
 
-from spacegame.main_menu import MainMenu
-from spacegame.in_game import InGame
-from spacegame.application import Application
-from spacegame.game_entities import *
-from spacegame.levels import AsteroidBeltLevel
+from astrolero.main_menu import MainMenu
+from astrolero.in_game import IngameState
+from astrolero.game_entities import *
+from astrolero.levels import AsteroidBeltLevel
+
 
 # TODO: Refactor this and path usage
 ROOT = os.path.dirname(__file__) + "/"
 
-class SGame(InGame):
-    def __init__(self, owner):
-        super(SGame, self).__init__(owner)
+pygame.display.init()
+pygame.mixer.init()
+pygame.font.init()
+
+
+class SGame(IngameState):
+    def __init__(self, app):
+        super().__init__(app)
         self.reset()
 
     def reset(self):
@@ -25,7 +30,7 @@ class SGame(InGame):
         # playership
         playerShip = PlayerShip(self, 0, 0)
         playerShip.image = ROOT + 'res/gfx/Ship1.png'
-        playerShip.x = self.owner.display.get_width() / 2 - playerShip.width / 2
+        playerShip.x = self.app.display.get_width() / 2 - playerShip.width / 2
         playerShip.y = self.owner.display.get_height() - playerShip.height
         playerShip.constraints.width = self.owner.display.get_width()
         playerShip.constraints.height = self.owner.display.get_height()
@@ -33,7 +38,7 @@ class SGame(InGame):
         playerShip.currentWeapon = WBasicLaser(playerShip)
         self._playerShip = playerShip
 
-        self.addGameObject(playerShip)
+        self.add(playerShip)
         # test asteroidoids
         for a in [Asteroid(self) for i in range(15)]:
             a.image = ROOT + 'res/gfx/asteroids/asteroid{}.png'.format(
@@ -66,7 +71,7 @@ class SGame(InGame):
             K_a: lambda: self.movePlayerShip(-dx, 0),
             K_s: lambda: self.movePlayerShip(0,  dy),
             K_d: lambda: self.movePlayerShip(dx,  0),
-            K_z: lambda: self.openFire()
+            K_z: self.openFire,
         }
 
         for k in key_action_map:
@@ -77,8 +82,11 @@ class SGame(InGame):
             i.updateState()
 
     def handleKeydown(self, key):
+        def to_pause_menu():
+            self.owner.state = "SPause"
+
         {
-            K_ESCAPE: lambda: self.owner.setState("Pause Menu")
+            K_ESCAPE: to_pause_menu,
         }.get(key, lambda: None)()
 
     def handleKeyup(self, key):
@@ -106,11 +114,12 @@ class SMainMenu(MainMenu):
 
         self.background = ROOT + 'res/gfx/menu/logo.png'
         self.music = ROOT + 'res/snd/runaway.ogg'
-        self.play_music()
+        # TODO:
+        # self.play_music()
         self.addMenu("Main Menu", [
             ("Start Game", lambda: self.setCurrentMenu("Start Game")),
             ("Highscores", lambda: self.setCurrentMenu("High Scores")),
-            ("Quit", self.owner.exitGame)
+            ("Quit", self.app.stop)
         ])
 
         self.addMenu("Start Game", [
@@ -136,11 +145,11 @@ class SMainMenu(MainMenu):
         self.setCurrentMenu("Main Menu")
 
     def switchToGameState(self):
-        self.owner.setState("game")
-        self.owner.state.reset()
+        self.app.state = "Game"
+        self.app.state.reset()
 
     def switchToPause(self):
-        self.owner.setState("pauseMenu")
+        self.app.state = "SPauseMenu"
 
 
 class SPause(MainMenu):
@@ -149,7 +158,8 @@ class SPause(MainMenu):
 
         self.background = ROOT + "res/gfx/menu/logo.png"
         self.music = ROOT + "res/snd/runaway.ogg"
-        self.play_music()
+        # TODO:
+        # self.play_music()
 
         self.addMenu("Pause", [
             ("Continue", lambda: self.owner.setState("game")),
