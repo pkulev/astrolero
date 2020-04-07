@@ -1,7 +1,7 @@
 """Entry point module."""
 
 from astrolero.application import PygameApplication
-from astrolero.game import SGame, SMainMenu, SPause
+from astrolero.game import Game, SMainMenu, SPause
 
 
 def main():
@@ -9,8 +9,8 @@ def main():
 
     app = PygameApplication()
     app.set_caption("PYГAME: CTAДNЯ")
-    app.register(SMainMenu)
-    app.register(SGame)
+    #app.register(SMainMenu)
+    app.register(Game)
     app.register(SPause)
     app.start()
 
