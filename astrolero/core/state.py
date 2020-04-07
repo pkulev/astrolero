@@ -1,5 +1,4 @@
 import pygame
-#from pygame.locals import *
 
 
 class State(object):
@@ -12,14 +11,6 @@ class State(object):
     def owner(self):
         """Application - owner of the state"""
         return self._owner
-
-    @property
-    def background(self):
-        return self._background
-
-    @background.setter
-    def background(self, path):
-        self._background = pygame.image.load(path)
 
     @property
     def music(self):
