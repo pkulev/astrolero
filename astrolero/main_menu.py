@@ -13,6 +13,15 @@ class MainMenu(State):
         super().__init__(app)
         self._menus = []
         self._currentMenu = None
+        self._background = None
+
+    @property
+    def background(self):
+        return self._background
+
+    @background.setter
+    def background(self, path):
+        self._background = pygame.image.load(path)
 
     def addMenu(self, caption, item_action_list):
         item_action_dict = OrderedDict(item_action_list)
@@ -20,7 +29,7 @@ class MainMenu(State):
                                self._menus)):
             raise KeyError("Menu '{0}' already exists".format(caption))
 #        print(gui, SubMenu)
-        new_menu = SubMenu(self, caption)
+        new_menu = SubMenu(caption)
         for entry, action in item_action_dict.items():
             new_menu.addMenuItem(entry, action)
         self._menus.append(new_menu)
@@ -48,6 +57,6 @@ class MainMenu(State):
         pass
 
     def render(self):
-        self.owner.display.fill(pygame.Color(0, 0, 0, 1))
-        self.owner.display.blit(self.background, (0, 0))
+        self.app.renderer.screen.fill(pygame.Color(0, 0, 0, 1))
+        self.app.renderer.screen.blit(self.background.image, (0, 0))
         self._currentMenu.draw()

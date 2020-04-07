@@ -18,46 +18,7 @@ pygame.mixer.init()
 pygame.font.init()
 
 
-class SGame(IngameState):
-    def __init__(self, app):
-        super().__init__(app)
-        self.reset()
-
-    def reset(self):
-        self._gameObjects = []
-        self.background = ROOT + 'res/gfx/space.jpg'
-
-        # playership
-        playerShip = PlayerShip(self, 0, 0)
-        playerShip.image = ROOT + 'res/gfx/Ship1.png'
-        playerShip.x = self.app.display.get_width() / 2 - playerShip.width / 2
-        playerShip.y = self.owner.display.get_height() - playerShip.height
-        playerShip.constraints.width = self.owner.display.get_width()
-        playerShip.constraints.height = self.owner.display.get_height()
-
-        playerShip.currentWeapon = WBasicLaser(playerShip)
-        self._playerShip = playerShip
-
-        self.add(playerShip)
-        # test asteroidoids
-        for a in [Asteroid(self) for i in range(15)]:
-            a.image = ROOT + 'res/gfx/asteroids/asteroid{}.png'.format(
-                random.randint(0, 3))
-
-            # WOW. Looks dangerous
-            # TODO: convinient scaling for random asteroid sizing
-            a._image = pygame.transform.scale(
-                a.image,
-                (a.width // random.randrange(8, 12),
-                 a.height // random.randrange(8, 12)))
-
-            a.leap(random.randrange(self.owner.width - 300) + 150,
-                   random.randrange(self.owner.height - 300) + 150)
-            a.rotateUntilStop(
-                self.owner.width / 2, self.owner.height / 2,
-                0.05 + random.randrange(20) / 1000.0, 100, -0.0001)
-            self.addGameObject(a)
-
+class Game(IngameState):
     def updateState(self):
         dx = 5
         dy = 5
@@ -83,7 +44,7 @@ class SGame(IngameState):
 
     def handleKeydown(self, key):
         def to_pause_menu():
-            self.owner.state = "SPause"
+            self.app.state = "SPause"
 
         {
             K_ESCAPE: to_pause_menu,
@@ -109,8 +70,8 @@ class SGame(IngameState):
 
 
 class SMainMenu(MainMenu):
-    def __init__(self, owner):
-        super(SMainMenu, self).__init__(owner)
+    def __init__(self, app):
+        super().__init__(app)
 
         self.background = ROOT + 'res/gfx/menu/logo.png'
         self.music = ROOT + 'res/snd/runaway.ogg'
@@ -153,8 +114,8 @@ class SMainMenu(MainMenu):
 
 
 class SPause(MainMenu):
-    def __init__(self, owner):
-        super(SPause, self).__init__(owner)
+    def __init__(self, app):
+        super(SPause, self).__init__(app)
 
         self.background = ROOT + "res/gfx/menu/logo.png"
         self.music = ROOT + "res/snd/runaway.ogg"
@@ -162,7 +123,7 @@ class SPause(MainMenu):
         # self.play_music()
 
         self.addMenu("Pause", [
-            ("Continue", lambda: self.owner.setState("game")),
+            ("Continue", lambda: self.app.setState("game")),
             ("Main Menu", lambda: self.setCurrentMenu("Main Menu"))
             ])
 
