@@ -8,14 +8,34 @@ from eaf.render import Renderer
 
 class PygameRenderer(Renderer):
 
+    def __init__(self, window, fill_color=pygame.Color(0, 0, 0, 255)):
+        super().__init__(window)
+
+        self._fill_color = fill_color
+
+    @property
+    def fill_color(self):
+        return self._fill_color
+
+    @fill_color.setter
+    def fill_color(self, values):
+        self._fill_color = pygame.Color(*values)
+
     def clear(self):
-        pass
+        self.screen.fill(self.fill_color)
 
     def render_objects(self, objects):
-        pass
+        for obj in objects:
+            self.screen.blit(obj.image, obj.pos.as_tuple2())
 
     def present(self):
         pass
+
+    def get_width(self):
+        return self.screen.get_width()
+
+    def get_height(self):
+        return self.screen.get_height()
 
 
 class PygameApplication(Application):
