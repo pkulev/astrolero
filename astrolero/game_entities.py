@@ -23,7 +23,6 @@ class PlayerShip(Ship):
         super(PlayerShip, self).__init__(owner)
         self._x = startX
         self._y = startY
-        self.baseType = "PlayerShip"
 
     def updateState(self):
         self.updatePosition()
@@ -35,7 +34,6 @@ class PlayerShip(Ship):
 class EnemyShip(Ship):
     def __init__(self, owner, startX, startY):
         super(EnemyShip, self).__init__(owner)
-        self.baseType = "EnemyShip"
 
 
 class Weapon(Entity):
