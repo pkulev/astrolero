@@ -1,10 +1,15 @@
+import eaf.app
 import pygame
+
 from pygame.locals import *
+
 from .core.gui_abstract import GuiElement
 
+
 class MenuButton(GuiElement):
-    def __init__(self, owner, text, action):
-        super(MenuButton, self).__init__(owner)
+    def __init__(self, text, action):
+        super().__init__()
+
         self._text = text
         self._action = action
         self.font = 48
@@ -27,14 +32,14 @@ class MenuButton(GuiElement):
         text = self._font.render(selector + " " + self._text + " " + selector,
                                  1, (255, 255, 255, 255))
         textpos = text.get_rect()
-        textpos.centerx = self.application.width / 2
+        textpos.centerx = eaf.app.current().renderer.get_width() / 2
         textpos.centery = height
-        self.application.display.blit(text, textpos)
+        eaf.app.renderer.screen.blit(text, textpos)
 
 
 class SubMenu(GuiElement):
-    def __init__(self, owner, caption):
-        super(SubMenu, self).__init__(owner)
+    def __init__(self, caption):
+        super().__init__()
         #up to 8 fancy items!
         self._caption = caption
         self._caption_center_y = 20
@@ -92,7 +97,7 @@ class SubMenu(GuiElement):
     def addMenuItem(self, text, action):
         if len(self._menuItems) >= 8:
             raise IndexError("Too many menu items")
-        self._menuItems.append(MenuButton(self.owner, text, action))
+        self._menuItems.append(MenuButton(text, action))
 
     def handleEvents(self, event):
         if event.key == K_DOWN:
@@ -109,9 +114,9 @@ class SubMenu(GuiElement):
     def draw(self):
         text = self._font.render(self._caption, 1, (255, 255, 255))
         textpos = text.get_rect()
-        textpos.centerx = self.application.width / 2
+        textpos.centerx = eaf.app.current().renderer.get_width() / 2
         textpos.centery = self._caption_center_y
-        self.application.display.blit(text, textpos)
+        eaf.app.current().renderer.screen.blit(text, textpos)
 
         for i, m in enumerate(self._menuItems):
             if i == self._position:

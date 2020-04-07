@@ -1,22 +1,14 @@
 import pygame
 
+from eaf.render import Renderable
 
-class GuiElement(object):
-    def __init__(self, owner):
-        self._owner = owner
-        self._application = owner.owner
+
+class GuiElement(Renderable):
+    def __init__(self):
+        super().__init__()
+
         self._font = None
-         
-    @property
-    def owner(self):
-        """State - owner of GUI element"""
-        return self._owner
-         
-    @property
-    def application(self):
-        """Master application"""
-        return self._application
-         
+
     @property
     def font(self):
         """Current font. You can specify it's size"""
@@ -25,10 +17,13 @@ class GuiElement(object):
     @font.setter
     def font(self, size):
         self._font = pygame.font.Font(None, size)
+
+    # TODO:
+    def get_render_data(self):
+        pass
          
     def draw(self):
         raise NotImplementedError("All GUI element must specify draw method")
          
     def __call__(self, event):
-        raise NotImplementedError('''All GUI elements
-                                  must specify __call__ method''')
+        raise NotImplementedError("All GUI elements must specify __call__ method")
