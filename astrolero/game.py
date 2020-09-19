@@ -66,7 +66,7 @@ class Game(IngameState):
         self._playerShip.centery += dy
 
     def openFire(self):
-        self._playerShip.currentWeapon.fire()
+        self._playerShip.weapon.fire()
 
 
 class SMainMenu(MainMenu):

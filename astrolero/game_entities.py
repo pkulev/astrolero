@@ -1,40 +1,48 @@
 """Game entities."""
 
+import os
+import pathlib
+
+from eaf import Vec3
+
 from .core.entity import Entity
 from .movable import Movable
 
 
+# TODO: Refactor this and path usage
+ROOT = pathlib.Path(os.path.dirname(__file__))
+
+
+class Background(Entity):
+
+    def __init__(self, image):
+        super().__init__(Vec3(), image)
+
+
+
 class Ship(Entity):
-    def __init__(self, owner):
-        super(Ship, self).__init__(owner)
-        self._currentWeapon = None
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self._weapon = None
 
         @property
-        def currentWeapon(self):
-            return self._currentWeapon
+        def weapon(self):
+            return self._weapon
 
-        @currentWeapon.setter
-        def currentWeapon(self, weapon):
-            self._currentWeapon = weapon
+        @weapon.setter
+        def weapon(self, obj):
+            self._weapon = obj
 
 
 class PlayerShip(Ship):
-    def __init__(self, owner, startX, startY):
-        super(PlayerShip, self).__init__(owner)
-        self._x = startX
-        self._y = startY
 
-    def updateState(self):
-        self.updatePosition()
-
-    def updatePosition(self):
-        pass
+    def __init__(self, pos):
+        super().__init__(pos, image=str(ROOT / "res" / "gfx" / "Ship1.png"))
 
 
 class EnemyShip(Ship):
-    def __init__(self, owner, startX, startY):
-        super(EnemyShip, self).__init__(owner)
-
+    pass
 
 class Weapon(Entity):
     def __init__(self, owner):
@@ -46,26 +54,18 @@ class Weapon(Entity):
 
 
 class WeaponShell(Movable):
-    def __init__(self, owner):
-        super(WeaponShell, self).__init__(owner)
-
-    def updateState(self):
-        super(WeaponShell, self).updateState()
-
-    def handleEvents(self):
-        pass
-
+    pass
 
 class BasicLaser(WeaponShell):
-    def __init__(self, owner):
-        super(BasicLaser, self).__init__(owner)
+    def __init__(self, pos):
+        super(BasicLaser, self).__init__(pos)
         self.leap(0, 0)
         self.rotateUntilStop(0, 0, 0, 0, 0)
 
 
 class WBasicLaser(Weapon):
-    def __init__(self, owner):
-        super(WBasicLaser, self).__init__(owner)
+    def __init__(self, pos):
+        super(WBasicLaser, self).__init__(pos)
         self.shell = BasicLaser
 
         def fire(self):
