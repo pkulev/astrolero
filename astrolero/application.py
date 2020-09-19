@@ -29,7 +29,7 @@ class PygameRenderer(Renderer):
             self.screen.blit(obj.image, obj.pos.as_tuple2())
 
     def present(self):
-        pass
+        pygame.display.flip()
 
     def get_width(self):
         return self.screen.get_width()
