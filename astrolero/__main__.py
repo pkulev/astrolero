@@ -11,7 +11,7 @@ def main():
     app.set_caption("PYГAME: CTAДNЯ")
     #app.register(SMainMenu)
     app.register(Game)
-    app.register(SPause)
+    # app.register(SPause)
     app.start()
 
 
