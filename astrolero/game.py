@@ -62,8 +62,8 @@ class Game(IngameState):
             pass
 
     def movePlayerShip(self, dx, dy):
-        self._playerShip.centerx += dx
-        self._playerShip.centery += dy
+        self._playerShip.x += dx
+        self._playerShip.y += dy
 
     def openFire(self):
         self._playerShip.weapon.fire()
