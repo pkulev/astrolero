@@ -52,11 +52,3 @@ class MainMenu(State):
             if event.key == K_ESCAPE:
                 self.setCurrentMenu(self._menus[0].caption)
             self._currentMenu.handleEvents(event)
-
-    def update(self):
-        pass
-
-    def render(self):
-        self.app.renderer.screen.fill(pygame.Color(0, 0, 0, 1))
-        self.app.renderer.screen.blit(self.background.image, (0, 0))
-        self._currentMenu.draw()
