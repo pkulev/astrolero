@@ -21,10 +21,48 @@ from astrolero.game_entities import (
 ROOT = pathlib.Path(os.path.dirname(__file__))
 
 
+class Action:
+
+    def __init__(self, callback):
+        self.callback = callback
+
+
+action_set = set([
+    
+])
+
+class EventHandler:
+    def __init__(self, *args, **kwargs):
+        pass
+
+
 class IngameState(State):
 
     def postinit(self):
         self.reset()
+
+        # TODO: rethinkhttps://ruslanspivak.com/lsbaws-part1/
+        self._events = EventHandler(
+            self,
+            {
+                pygame.KEYDOWN: {
+                    pygame.K_w: self.actor.move_forward,
+                    pygame.K_a: self.actor.move_left,
+                    pygame.K_d: self.actor.move_right,
+                    pygame.K_s: self.actor.move_backward,
+                    pygame.K_SPACE: self.actor.fire,
+                },
+                pygame.KEYUP: {
+                    pygame.K_ESCAPE: self.pause_command,
+                },
+                pygame.MOUSEBUTTONDOWN: {
+                    
+                },
+            },
+        )
+
+    def pause_command(self):
+        self.app.state = "PauseMenuState"
 
     def reset(self):
         self.background = str(ROOT / "res" / "gfx" / "space.jpg")

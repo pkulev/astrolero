@@ -27,8 +27,7 @@ astrolero = "astrolero.__main__:main"
 [tool.poetry.dependencies]
 python = "^3.7"
 eaf = "^0.2"
-xo2 = "^0.1.0"
-pygame = "^1.9.6"
+xo2 = "0.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"

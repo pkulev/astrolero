@@ -34,6 +34,21 @@ class Ship(Entity):
         def weapon(self, obj):
             self._weapon = obj
 
+        def move_left(self):
+            self._direction = -1
+
+        def move_right(self):
+            self._direction = 1
+
+        def move_forward(self):
+            pass
+
+        def move_backward(self):
+            pass
+
+        def fire(self):
+            pass
+
 
 class PlayerShip(Ship):
 
@@ -43,6 +58,7 @@ class PlayerShip(Ship):
 
 class EnemyShip(Ship):
     pass
+
 
 class Weapon(Entity):
     def __init__(self, owner):
